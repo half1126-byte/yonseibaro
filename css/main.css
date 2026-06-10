@@ -296,6 +296,10 @@ section[data-cover]{ position:relative; overflow:hidden; }
 /* 퍼플 page-hero 위에서는 로고를 흰색으로 (스크롤 시 원색 복귀) */
 .site-header--over-dark:not(.is-scrolled) .wordmark__logo { filter: brightness(0) invert(1); }
 
+/* 진료 공간 (FACILITY) — 실 인테리어 보드 */
+.facility-boards { display:flex; flex-direction:column; gap: var(--space-5); margin-top: var(--space-7); }
+.facility-board { width:100%; height:auto; display:block; box-shadow: var(--shadow-card); }
+
 /* QA fix: 모바일 헤더 정리 — 예약 버튼 숨김(플로팅 CTA가 대체), 햄버거만 */
 @media (max-width:999px){ .nav-actions .btn{ display:none; } }
 
