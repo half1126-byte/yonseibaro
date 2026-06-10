@@ -318,6 +318,9 @@
         if ((a.getAttribute("href") || "").indexOf("tel:") === 0) a.textContent = cfg.tel;
       });
     }
+    if (cfg.address) {
+      $$("[data-config-address]").forEach(function (el) { el.textContent = cfg.address; });
+    }
 
     /* 지도 임베드 — URL 입력 시 맵 카드를 실제 지도로 교체 */
     var mapCard = doc.querySelector(".map-card");
