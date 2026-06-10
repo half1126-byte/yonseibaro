@@ -222,6 +222,8 @@
   (function noticePop() {
     var pop = doc.querySelector("[data-notice-pop]");
     if (!pop) return;
+    /* 개원 정보 확정 전 팝업 비활성 (site-config.showPopup) */
+    if ((window.BARO_CONFIG || {}).showPopup === false) return;
     var NEVER_KEY = "baroNoticeNever", SESSION_KEY = "baroNoticeClosed";
     try {
       if (window.localStorage.getItem(NEVER_KEY) === "1") return;
@@ -333,13 +335,58 @@
       mapCard.replaceWith(frame);
     }
 
-    /* 관심 이벤트 — FAQ 펼침 / 원장 소개 클릭 */
+    /* 관심 이벤트 — FAQ 펼침 / 원장 소개 / 진료별 클릭 (3차 검수 6-2) */
     $$(".faq-item summary").forEach(function (sm) {
       sm.addEventListener("click", function () { track("faq_open", sm.textContent.trim().slice(0, 30)); });
     });
     $$('a[href*="about"]').forEach(function (a) {
       a.addEventListener("click", function () { track("doctor_view", "about"); });
     });
+    $$(".tx-card a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        var card = a.closest(".tx-card");
+        var name = card && card.querySelector("h3") ? card.querySelector("h3").textContent.trim() : "";
+        track("treatment_click", name);
+      });
+    });
+
+    /* 스크롤 깊이 25/50/75/100 (각 1회) + 예약 영역 도달 */
+    if (cfg.ga4) {
+      var marks = [25, 50, 75, 100], fired = {};
+      window.addEventListener("scroll", function () {
+        var h = doc.documentElement;
+        var max = h.scrollHeight - h.clientHeight;
+        if (max <= 0) return;
+        var pct = ((window.scrollY || h.scrollTop) / max) * 100;
+        marks.forEach(function (m) {
+          if (pct >= m && !fired[m]) { fired[m] = true; track("scroll_depth", String(m)); }
+        });
+      }, { passive: true });
+      var booking = doc.getElementById("contact");
+      if (booking && hasIO) {
+        var bio = new IntersectionObserver(function (es) {
+          es.forEach(function (en) {
+            if (en.isIntersecting) { track("booking_section_view", ""); bio.disconnect(); }
+          });
+        }, { threshold: 0.3 });
+        bio.observe(booking);
+      }
+    }
+
+    /* 시안 모드 고지 — 더미 정보가 화면에 노출될 때 명시 (3차 검수 3-1) */
+    if (cfg.draftInfo) {
+      var note = "※ 본 페이지의 전화번호·주소·예약 링크는 시안 확인용 임시 정보입니다. 실제 정보는 개원 시 확정됩니다.";
+      var contactInfo = doc.querySelector(".contact-info");
+      /* 정적 고지가 이미 있으면 중복 주입 안 함 (JS 실패 대비 폴백은 정적 쪽) */
+      if (contactInfo && !contactInfo.querySelector(".disclaimer")) {
+        var p1 = doc.createElement("p");
+        p1.className = "disclaimer";
+        p1.textContent = note;
+        contactInfo.appendChild(p1);
+      }
+      var footBottom = doc.querySelector(".footer-bottom p");
+      if (footBottom) footBottom.textContent = note + " 의료광고 관련 표현·사례는 사전심의 후 게시됩니다.";
+    }
   })();
 
   /* ---- 히어로 패럴랙스 (데스크톱 — 비주얼이 스크롤의 12%만 따라옴) ---- */
