@@ -76,7 +76,7 @@ body.ticker-hidden .site-header, body.ticker-hidden .scroll-progress { transform
   display:flex; align-items:center; transition: background var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease); }
 .site-header.is-scrolled { background: rgba(255,255,255,.92); backdrop-filter: blur(12px); box-shadow:0 1px 0 var(--line); }
 .site-header .container { display:flex; align-items:center; justify-content:space-between; width:100%; }
-.wordmark { font-family: var(--font-krserif); font-weight:600; font-size:1.32rem; letter-spacing:-.01em; color: var(--ink-900); display:inline-flex; align-items:center; }
+.wordmark { font-family: var(--font-sans); font-weight:700; font-size:1.26rem; letter-spacing:-.02em; color: var(--ink-900); display:inline-flex; align-items:center; }
 .wordmark .kr { font-family: var(--font-sans); font-weight: var(--w-med); color: var(--ink-500); margin-left:7px; font-size:.82rem; letter-spacing:0; }
 .wordmark--light, .wordmark--light .kr { color:#fff; }
 .wordmark__logo { height:24px; width:auto; flex:none; margin-right:9px; display:block; }
@@ -123,8 +123,8 @@ body.nav-open { overflow:hidden; }
 .hero__eyebrow { position:absolute; left:50%; bottom:25%; transform:translateX(-50%); z-index:2; width:max-content; max-width:88vw;
   font-size: clamp(.78rem, 1.1vw, .95rem); letter-spacing:.02em; color: var(--ink-700); font-weight: var(--w-med); line-height:1.7; text-align:center; }
 .hero__wordmark { position:relative; z-index:1; margin-top: clamp(-70px, -6vw, -120px);
-  font-family: var(--font-display); font-weight:400; font-size: var(--fs-wordmark); line-height:.92;
-  letter-spacing: var(--tracking-en); color: var(--accent); white-space:nowrap; text-align:center; user-select:none; }
+  font-family: var(--font-display); font-weight:650; font-size: var(--fs-wordmark); line-height:.95;
+  letter-spacing:-.025em; color: var(--accent); white-space:nowrap; text-align:center; user-select:none; }
 .hero__lead { color: var(--ink-900); font-size: clamp(1.15rem, 2vw, 1.55rem); font-weight: var(--w-semi);
   letter-spacing: var(--tracking-tight); margin: var(--space-6) auto 0; max-width:60ch; }
 .hero__sub { color: var(--ink-500); font-size: var(--fs-small); margin: var(--space-4) auto 0; max-width:56ch; line-height:1.8; }
@@ -222,7 +222,7 @@ body.nav-open { overflow:hidden; }
 .proc { display:grid; gap: var(--space-7); grid-template-columns:1fr; margin-top: var(--space-9); }
 @media (min-width:760px){ .proc{ grid-template-columns: repeat(4,1fr); } }
 .proc__step { padding-top: var(--space-6); border-top:1px solid var(--line-2); }
-.proc__n { font-family: var(--font-num); font-size: var(--fs-bignum); color: var(--accent); display:block; line-height:1; }
+.proc__n { font-family: var(--font-num); font-weight:700; letter-spacing:-.02em; font-size: var(--fs-bignum); color: var(--accent); display:block; line-height:1; }
 .proc__step h3 { color: var(--ink-900); font-size: var(--fs-h3); margin: var(--space-5) 0 var(--space-3); }
 .proc__step p { color: var(--ink-500); font-size: var(--fs-small); line-height:1.7; }
 
@@ -284,7 +284,7 @@ body.nav-open { overflow:hidden; }
 /* ---- Footer (TU 시그니처: 풀 액센트 블록) ---- */
 .site-footer { background: var(--accent); color: var(--on-dark); padding-block: var(--space-9) var(--space-7); }
 .site-footer .wordmark { font-size:1.6rem; }
-.site-footer .footer-mark { font-family: var(--font-display); font-size: clamp(2.6rem, 6vw, 5rem); color:#fff; line-height:1; letter-spacing: var(--tracking-en); display:block; margin-bottom: var(--space-5); }
+.site-footer .footer-mark { font-family: var(--font-display); font-weight:700; font-size: clamp(2.4rem, 5.5vw, 4.6rem); color:#fff; line-height:1; letter-spacing:-.02em; display:block; margin-bottom: var(--space-5); }
 .footer-grid { display:grid; gap: var(--space-7); grid-template-columns:1fr; padding-bottom: var(--space-8); border-bottom:1px solid var(--on-dark-line); }
 @media (min-width:760px){ .footer-grid{ grid-template-columns:1.6fr 1fr; } }
 .footer-info { font-size: var(--fs-small); color: var(--on-dark-dim); margin-top: var(--space-5); line-height:1.7; }
@@ -442,7 +442,7 @@ section[data-cover]{ position:relative; overflow:hidden; }
 .stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background: var(--line); border:1px solid var(--line); border-radius: var(--radius-md); overflow:hidden; }
 @media (min-width:980px){ .stats-grid{ grid-template-columns: repeat(4,1fr); } }
 .stats-grid > div { background: var(--paper); padding: var(--space-7) var(--space-6); }
-.stat__n { font-family: var(--font-num); font-size: var(--fs-bignum); color: var(--accent); line-height:1; display:flex; align-items:baseline; gap:7px; }
+.stat__n { font-family: var(--font-num); font-weight:700; letter-spacing:-.02em; font-size: var(--fs-bignum); color: var(--accent); line-height:1; display:flex; align-items:baseline; gap:7px; }
 .stat__n small { font-family: var(--font-sans); font-size:1rem; color: var(--ink-500); letter-spacing:.06em; }
 .stat__t { margin-top: var(--space-4); color: var(--ink-500); font-size: var(--fs-small); line-height:1.6; }
 .stat__t strong { display:block; color: var(--ink-900); font-weight: var(--w-semi); margin-bottom:2px; }
@@ -522,7 +522,7 @@ html.loading { overflow:hidden; }
 html.loading .loader { opacity:1; visibility:visible; }
 .loader__mark { display:grid; place-items:center; gap:16px; text-align:center; }
 .loader__mark img { height:56px; width:auto; animation: loaderPulse 1.6s var(--ease-house) infinite; }
-.loader__mark span { font-family: var(--font-display); font-size:1.05rem; letter-spacing:.3em; text-transform:uppercase; color: var(--accent); padding-left:.3em; }
+.loader__mark span { font-family: var(--font-display); font-weight:600; font-size:.92rem; letter-spacing:.3em; text-transform:uppercase; color: var(--accent); padding-left:.3em; }
 @keyframes loaderPulse { 0%,100%{ opacity:.55; transform:scale(.98);} 50%{ opacity:1; transform:scale(1);} }
 
 /* ---- 맵 카드 (개원 전 — 위치 티저) ---- */
@@ -540,7 +540,7 @@ html.loading .loader { opacity:1; visibility:visible; }
 .map-card__pin { position:relative; width:16px; height:16px; margin:0 auto var(--space-4); border-radius:999px; background: var(--brand); }
 .map-card__pin::after { content:""; position:absolute; inset:-10px; border-radius:999px; border:1px solid var(--brand); opacity:0; animation: pinPulse 2.4s var(--ease-house) infinite; }
 @keyframes pinPulse { 0%{ transform:scale(.4); opacity:.8; } 70%{ transform:scale(1.25); opacity:0; } 100%{ opacity:0; } }
-.map-card__center strong { font-family: var(--font-display); font-size: clamp(1.6rem, 2.8vw, 2.3rem); color: var(--accent); letter-spacing:.08em; text-transform:uppercase; }
+.map-card__center strong { font-family: var(--font-display); font-weight:700; font-size: clamp(1.5rem, 2.6vw, 2.1rem); color: var(--accent); letter-spacing:.04em; text-transform:uppercase; }
 .map-card__center p { color: var(--ink-500); font-size: var(--fs-small); margin-top: var(--space-3); }
 @media (prefers-reduced-motion: reduce){ .map-card__pin::after{ animation:none; } }
 
@@ -548,8 +548,8 @@ html.loading .loader { opacity:1; visibility:visible; }
 .statement { position:relative; overflow:hidden; background: var(--paper); color: var(--ink-900); text-align:center;
   padding-block: clamp(120px, 17vw, 250px); }
 .statement__ghost { position:absolute; left:50%; top:50%; transform: translate(-50%,-52%); z-index:0; pointer-events:none;
-  font-family: var(--font-display); font-weight:400; font-size: clamp(7rem, 26vw, 24rem); line-height:1;
-  color: var(--accent); opacity:.05; white-space:nowrap; user-select:none; }
+  font-family: var(--font-display); font-weight:800; letter-spacing:-.03em; font-size: clamp(7rem, 24vw, 22rem); line-height:1;
+  color: var(--accent); opacity:.045; white-space:nowrap; user-select:none; }
 .statement .container { position:relative; z-index:1; }
 .statement__en { display:block; font-family: var(--font-display); font-size: clamp(1.05rem, 1.8vw, 1.45rem);
   color: var(--ink-500); letter-spacing:.18em; text-transform:uppercase; margin-bottom: var(--space-6); }

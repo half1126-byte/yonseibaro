@@ -55,14 +55,14 @@
   --scrim: linear-gradient(180deg, rgba(20,20,20,0) 0%, rgba(20,20,20,.55) 100%);
   --focus-ring: var(--accent);
 
-  /* ---- Typography ---- */
+  /* ---- Typography — 전체 Pretendard 단일 패밀리 (사용자 확정) ---- */
   --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif;
-  --font-display: "Italiana", "Noto Serif KR", serif;     /* 영문 자이언트 디스플레이 (Condor 대응) */
-  --font-serif: "Italiana", "Noto Serif KR", Georgia, serif; /* 라틴→Italiana, 한글→본명조 */
-  --font-krserif: "Noto Serif KR", Georgia, serif;          /* 워드마크/인용 한글 세리프 */
-  --font-num: "Italiana", var(--font-sans);
+  --font-display: var(--font-sans);
+  --font-serif: var(--font-sans);
+  --font-krserif: var(--font-sans);
+  --font-num: var(--font-sans);
 
-  --fs-wordmark: clamp(3rem, 10.2vw, 10.4rem);  /* 히어로 자이언트 워드마크 (YONSEI BARO 풀블리드) */
+  --fs-wordmark: clamp(3.2rem, 15vw, 15.5rem);  /* 히어로 자이언트 워드마크 (YONSEI BARO 풀블리드 — Pretendard 실측) */
   --fs-display: clamp(2.6rem, 6.5vw, 6rem);
   --fs-h2:      clamp(1.9rem, 4.2vw, 3.4rem);
   --fs-h3:      clamp(1.25rem, 2.2vw, 1.7rem);
