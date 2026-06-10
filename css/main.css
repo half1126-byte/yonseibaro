@@ -10,6 +10,7 @@
 [hidden] { display:none !important; }
 .section { padding-block: var(--section-pad-y); }
 .section--band { background: var(--paper-2); }
+.section--tint { background: var(--accent-tint); }   /* 2D pale-tint 워시 — 3톤 섹션 리듬 */
 .section--quiet { background: linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%); }
 .section--editorial { background: var(--paper); }
 /* TU 라이트: 구 다크 섹션은 웜 그레이 밴드로 */
@@ -124,6 +125,13 @@ body.nav-open { overflow:hidden; }
 /* 진료 카드 — 텍스트형 + 라인 아이콘 (placeholder 노출 제거) */
 .tx-ico { display:block; width:33px; height:33px; color: var(--accent); margin-bottom: var(--space-4); }
 .tx-ico svg { width:100%; height:100%; display:block; }
+/* 주력 진료 featured — 균일 그리드 탈피 (데스크톱만; 모바일 캐러셀은 균일 유지) */
+.tx-card__tag { display:inline-block; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+  color: var(--accent); font-weight: var(--w-semi); margin-bottom: var(--space-3); }
+@media (min-width:1000px){
+  .tx-card--featured { grid-column: span 2; background: var(--accent-tint); border-color: var(--accent-2); }
+  .tx-card--featured h3 { font-size: clamp(1.5rem, 2vw, 1.9rem); }
+}
 
 /* ---- Hero (원장 중심 신뢰형 스플릿 — 개선진단 5-1) ---- */
 .hero { position:relative; background: var(--paper); color: var(--ink-900); overflow:hidden; display:flex; align-items:center;
@@ -152,7 +160,7 @@ body.nav-open { overflow:hidden; }
 @media (max-width:979px){
   .hero__bgmark { display:none; }
   /* 모바일 원장 이미지는 38vh 이내 — H1·CTA가 첫 화면에 들어오도록 (3차 검수 4-5) */
-  .hero__portrait { order:-1; max-width: clamp(180px, calc(38vh * 0.75), 300px); }
+  .hero__portrait { order:-1; max-width: clamp(180px, calc(34vh * 0.75), 300px); }
   .hero__actions .btn { flex:1 1 auto; }
 }
 
@@ -222,18 +230,23 @@ body.nav-open { overflow:hidden; }
 
 /* ---- Doctor ---- */
 .dr-role { display:inline-block; font-size: var(--fs-body); color: var(--ink-500); font-weight: var(--w-med); margin-left: var(--space-3); }
-.dr-cv { margin: var(--space-7) 0; }
+/* 2D 헤어라인 프레임 모티프 — 1px 액센트 상하 보더 (브랜드 디테일) */
+.dr-cv { margin: var(--space-7) 0; border-top:1px solid var(--accent); border-bottom:1px solid var(--accent); padding: var(--space-2) 0; }
 .dr-cv li { padding: var(--space-4) 0; border-bottom:1px solid var(--line); color: var(--ink-700); font-size: var(--fs-small); }
+.dr-cv li:last-child { border-bottom:0; }
+/* 원장 이름 — 인물 중심 디스플레이 스케일 (TU) */
+#doctor .section__title { font-size: clamp(2.6rem, 5vw, 4rem); }
+.split--doctor .ph--portrait { aspect-ratio: 4/5; }
 .dr-cv li::before { content:""; display:inline-block; width:14px; height:1px; background: var(--gold); vertical-align:middle; margin-right: var(--space-3); }
 /* 원장 인용·철학 — Noto Serif KR */
 .dr-quote { font-family: var(--font-krserif); font-weight:500; font-size: var(--fs-h3); color: var(--ink-900); line-height:1.6; margin: var(--space-7) 0; padding-left: var(--space-6); border-left:2px solid var(--accent); }
 .kr-serif { font-family: var(--font-krserif); }
 
 /* ---- Doctor notes / journey ---- */
-.note-grid { display:grid; grid-template-columns:1fr; gap:1px; background: var(--line); border:1px solid var(--line); }
+.note-grid { display:grid; grid-template-columns:1fr; gap: var(--space-6); }
 @media (min-width:760px){ .note-grid{ grid-template-columns: repeat(2,1fr); } }
 @media (min-width:1100px){ .note-grid{ grid-template-columns: repeat(4,1fr); } }
-.note-card { background: var(--paper); padding: var(--space-7); }
+.note-card { background:transparent; border-top:1px solid var(--accent-2); padding: var(--space-5) 0 0; }
 .journey-list { display:grid; grid-template-columns:1fr; gap:1px; background: var(--line); border:1px solid var(--line); }
 .journey-list article { background: var(--paper); padding: var(--space-7); }
 @media (min-width:760px){ .journey-list{ grid-template-columns: repeat(2,1fr); } }
@@ -256,7 +269,9 @@ body.nav-open { overflow:hidden; }
 @media (min-width:760px){ .standard-list{ grid-template-columns:repeat(2,1fr); } }
 /* 신뢰 스트립 전용 — 얕은 패딩 밴드 */
 .section--trust { padding-block: clamp(40px, 6vw, 84px); border-block:1px solid var(--line); }
-.standard-list article { background: var(--paper); border:1px solid var(--line); padding: var(--space-6); }
+/* 박스 카드 → 헤어라인 리스트 (서브트랙션) */
+.standard-list { gap: var(--space-6); }
+.standard-list article { background:transparent; border:0; border-top:1px solid var(--accent-2); padding: var(--space-5) 0 0; }
 .standard-list strong { color: var(--ink-900); font-size:1.05rem; }
 .standard-list p { color: var(--ink-500); font-size: var(--fs-small); line-height:1.7; margin-top: var(--space-3); }
 
@@ -296,13 +311,16 @@ body.nav-open { overflow:hidden; }
 
 /* ---- Contact ---- */
 .contact-info { margin-top: var(--space-6); }
-.contact-info dl { display:grid; grid-template-columns:auto 1fr; gap: var(--space-4) var(--space-6); }
+.contact-info dl { display:grid; grid-template-columns:auto 1fr; gap: var(--space-4) var(--space-6);
+  border-top:1px solid var(--accent); border-bottom:1px solid var(--accent); padding: var(--space-5) 0; }
 .contact-info dt { color: var(--ink-500); font-size: var(--fs-small); }
 .contact-info .num a { color:inherit; font-family: var(--font-num); font-weight: var(--w-semi); }
 .contact-cta { display:flex; flex-wrap:wrap; gap: var(--space-3); margin-top: var(--space-6); }
-.hours { width:100%; border-collapse:collapse; font-size: var(--fs-small); }
+.hours { width:100%; border-collapse:collapse; font-size: var(--fs-small);
+  border-top:1px solid var(--accent); border-bottom:1px solid var(--accent); }
 .hours caption { text-align:left; color: var(--ink-500); margin-bottom: var(--space-4); }
 .hours th, .hours td { text-align:left; padding: var(--space-4) 0; border-bottom:1px solid var(--line); }
+.hours tr:last-child th, .hours tr:last-child td { border-bottom:0; }
 .hours .num { font-family: var(--font-num); }
 
 /* ---- Footer (딥 네이비 — 의료 신뢰 톤) ---- */
