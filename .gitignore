@@ -6,3 +6,7 @@
 .DS_Store
 Thumbs.db
 .gstack/
+
+# 브랜드 원본 소스 (웹 배포 불필요 — assets/brand/*.png만 사용)
+연세바로치과 로고/
+연세바로치과 로고.zip
