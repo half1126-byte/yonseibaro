@@ -76,9 +76,6 @@
           Object.keys(map).forEach(function (id) { map[id].classList.remove("is-active"); map[id].removeAttribute("aria-current"); });
           map[en.target.id].classList.add("is-active");
           map[en.target.id].setAttribute("aria-current", "true");
-          /* 다크 서피스 위에선 도트 컬러 반전 */
-          var dark = en.target.classList.contains("section--navy") || en.target.classList.contains("statement") || en.target.classList.contains("page-hero");
-          nav.classList.toggle("on-dark", dark);
         }
       });
     }, { rootMargin: "-42% 0px -52% 0px", threshold: 0 });
@@ -219,6 +216,60 @@
       /* 닫기 버튼이 유일한 포커서블 — Tab을 가둠 */
       if (e.key === "Tab") { e.preventDefault(); closeBtn.focus(); }
     });
+  })();
+
+  /* ---- TU식 공지 팝업 (여러 장 슬라이드 + 칩 탭 + 자동 전환) ---- */
+  (function noticePop() {
+    var pop = doc.querySelector("[data-notice-pop]");
+    if (!pop) return;
+    var NEVER_KEY = "baroNoticeNever", SESSION_KEY = "baroNoticeClosed";
+    try {
+      if (window.localStorage.getItem(NEVER_KEY) === "1") return;
+      if (window.sessionStorage.getItem(SESSION_KEY) === "1") return;
+    } catch (e) {}
+
+    var slides = $$("[data-np-slide]", pop);
+    var tabs = $$("[data-np-tab]", pop);
+    var idx = 0, timer = null;
+
+    function goTo(i) {
+      idx = (i + slides.length) % slides.length;
+      slides.forEach(function (s, k) { s.classList.toggle("is-active", k === idx); });
+      tabs.forEach(function (t, k) {
+        if (k === idx) t.setAttribute("aria-current", "true");
+        else t.removeAttribute("aria-current");
+      });
+    }
+    function stopAuto() { if (timer) { window.clearInterval(timer); timer = null; } }
+    function startAuto() {
+      if (reduce || slides.length < 2) return;
+      stopAuto();
+      timer = window.setInterval(function () { goTo(idx + 1); }, 5000);
+    }
+    function close(never) {
+      stopAuto();
+      pop.classList.remove("is-open");
+      try {
+        window.sessionStorage.setItem(SESSION_KEY, "1");
+        if (never) window.localStorage.setItem(NEVER_KEY, "1");
+      } catch (e) {}
+      window.setTimeout(function () { pop.hidden = true; }, 500);
+    }
+
+    tabs.forEach(function (t, k) { t.addEventListener("click", function () { stopAuto(); goTo(k); }); });
+    var prev = pop.querySelector("[data-np-prev]"), next = pop.querySelector("[data-np-next]");
+    if (prev) prev.addEventListener("click", function () { stopAuto(); goTo(idx - 1); });
+    if (next) next.addEventListener("click", function () { stopAuto(); goTo(idx + 1); });
+    pop.addEventListener("mouseenter", stopAuto);
+    var neverBtn = pop.querySelector("[data-np-never]"), closeBtn = pop.querySelector("[data-np-close]");
+    if (neverBtn) neverBtn.addEventListener("click", function () { close(true); });
+    if (closeBtn) closeBtn.addEventListener("click", function () { close(false); });
+
+    window.setTimeout(function () {
+      pop.hidden = false;
+      window.requestAnimationFrame(function () { pop.classList.add("is-open"); });
+      startAuto();
+    }, 1100);
   })();
 
   /* ---- 히어로 패럴랙스 (데스크톱 — 비주얼이 스크롤의 12%만 따라옴) ---- */
