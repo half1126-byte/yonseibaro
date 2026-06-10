@@ -5,11 +5,11 @@
    레퍼런스: tudentalclinic.com (라이트 테마 — 컬러드 디스플레이 / 단일 액센트 규율)
    ============================================================ */
 :root {
-  /* ---- Accent (로고 BR 색상군의 비비드 버전 — TU의 #ff4d00 역할) ---- */
-  --accent:      #4F46E5;   /* vivid indigo-violet — 디스플레이 타이포 / CTA / 풋터 */
-  --accent-2:    #8387DD;   /* 로고 라이트 퍼플 — 보조 */
-  --accent-deep: #3B33C9;   /* hover/strong */
-  --accent-tint: #EFEEFC;   /* 옅은 워시 */
+  /* ---- Accent (저채도 네이비-퍼플 — 의료 신뢰 톤, 개선진단 5-2 확정값) ---- */
+  --accent:      #4B4A78;   /* CTA / 강조 단어 */
+  --accent-2:    #7B78B4;   /* 보조 */
+  --accent-deep: #2F315F;   /* hover/strong */
+  --accent-tint: #F1F0FA;   /* 옅은 워시 */
 
   /* legacy 별칭 — main.css 호환 */
   --brand:   var(--accent);
@@ -21,10 +21,10 @@
   --gold:    var(--accent);
   --gold-soft: var(--accent-tint);
 
-  /* 구 다크 토큰 (사용 중단 — 호환용) */
-  --deep:     #1E1F44;
-  --deep-2:   #16172F;
-  --deep-grad: linear-gradient(180deg, #222354 0%, var(--deep) 38%, var(--deep-2) 100%);
+  /* 딥 네이비 — 푸터/CTA 밴드 서피스 */
+  --deep:     #232642;
+  --deep-2:   #181A31;
+  --deep-grad: linear-gradient(180deg, #282B4C 0%, var(--deep) 38%, var(--deep-2) 100%);
 
   /* ---- Ink ---- */
   --ink-900: #1A1A1A;
@@ -55,11 +55,11 @@
   --scrim: linear-gradient(180deg, rgba(20,20,20,0) 0%, rgba(20,20,20,.55) 100%);
   --focus-ring: var(--accent);
 
-  /* ---- Typography — 전체 Pretendard 단일 패밀리 (사용자 확정) ---- */
+  /* ---- Typography — 정보는 Pretendard로 명확하게, 원장의 철학은 Noto Serif KR로 깊이 있게 ---- */
   --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif;
   --font-display: var(--font-sans);
   --font-serif: var(--font-sans);
-  --font-krserif: var(--font-sans);
+  --font-krserif: "Noto Serif KR", "Nanum Myeongjo", Georgia, serif;  /* 철학·인용 전용 */
   --font-num: var(--font-sans);
 
   --fs-wordmark: clamp(3.2rem, 15vw, 15.5rem);  /* 히어로 자이언트 워드마크 (YONSEI BARO 풀블리드 — Pretendard 실측) */

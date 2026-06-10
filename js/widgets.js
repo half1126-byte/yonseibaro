@@ -280,6 +280,65 @@
     }, 1100);
   })();
 
+  /* ---- site-config 적용: 실제 전환 정보 주입 + CTA 클릭 트래킹 (개선진단 6-2/6-5) ---- */
+  (function siteConfig() {
+    var cfg = window.BARO_CONFIG || {};
+
+    /* GA4 — 측정 ID 입력 시에만 로드 */
+    if (cfg.ga4) {
+      var gs = doc.createElement("script");
+      gs.async = true;
+      gs.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(cfg.ga4);
+      doc.head.appendChild(gs);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag("js", new Date());
+      window.gtag("config", cfg.ga4);
+    }
+    function track(name, label) {
+      if (window.gtag && cfg.ga4) window.gtag("event", name, { event_label: label || "" });
+    }
+
+    /* CTA href 주입 — config가 비어 있으면 기존 placeholder 유지 */
+    var hrefMap = {
+      tel: cfg.tel ? "tel:" + cfg.tel.replace(/[^0-9+]/g, "") : null,
+      naver: cfg.naverBooking || null,
+      kakao: cfg.kakaoChannel || null
+    };
+    $$("[data-cta]").forEach(function (a) {
+      var kind = a.getAttribute("data-cta");
+      if (hrefMap[kind]) {
+        a.setAttribute("href", hrefMap[kind]);
+        if (kind !== "tel") { a.setAttribute("target", "_blank"); a.setAttribute("rel", "noopener"); }
+      }
+      a.addEventListener("click", function () { track("cta_click", kind); });
+    });
+    if (cfg.tel) {
+      $$(".num a, .contact-info .num a").forEach(function (a) {
+        if ((a.getAttribute("href") || "").indexOf("tel:") === 0) a.textContent = cfg.tel;
+      });
+    }
+
+    /* 지도 임베드 — URL 입력 시 맵 카드를 실제 지도로 교체 */
+    var mapCard = doc.querySelector(".map-card");
+    if (cfg.mapEmbedUrl && mapCard) {
+      var frame = doc.createElement("iframe");
+      frame.src = cfg.mapEmbedUrl;
+      frame.title = "오시는 길 지도";
+      frame.loading = "lazy";
+      frame.style.cssText = "width:100%;aspect-ratio:4/3;border:0;display:block;";
+      mapCard.replaceWith(frame);
+    }
+
+    /* 관심 이벤트 — FAQ 펼침 / 원장 소개 클릭 */
+    $$(".faq-item summary").forEach(function (sm) {
+      sm.addEventListener("click", function () { track("faq_open", sm.textContent.trim().slice(0, 30)); });
+    });
+    $$('a[href*="about"]').forEach(function (a) {
+      a.addEventListener("click", function () { track("doctor_view", "about"); });
+    });
+  })();
+
   /* ---- 히어로 패럴랙스 (데스크톱 — 비주얼이 스크롤의 12%만 따라옴) ---- */
   (function heroParallax() {
     if (reduce || !window.matchMedia("(min-width:1000px)").matches) return;
