@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="교정 전 — 불규칙한 치아 배열 일러스트">
+  <title>교정 전 (일러스트)</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F6F5FB"/>
+      <stop offset="1" stop-color="#ECEBF6"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <path d="M 90 380 Q 400 170 710 380" fill="none" stroke="#C9C8DD" stroke-width="1.5" stroke-dasharray="3 7"/>
+  <text x="36" y="566" font-family="'Pretendard', 'Apple SD Gothic Neo', sans-serif" font-size="22" fill="#8E8E8E" letter-spacing="1">교정 전 · 일러스트 예시</text>
+  <g fill="#FFFFFF" stroke="#A6A6A6" stroke-width="2.5">
+    <g transform="translate(140 352) rotate(-34)"><rect x="-33" y="-50" width="66" height="100" rx="26"/></g>
+    <g transform="translate(220 304) rotate(-6)"><rect x="-33" y="-50" width="66" height="100" rx="26"/></g>
+    <g transform="translate(284 262) rotate(-22)"><rect x="-33" y="-50" width="66" height="100" rx="26"/></g>
+    <g transform="translate(362 270) rotate(9)"><rect x="-33" y="-50" width="66" height="100" rx="26"/></g>
+    <g transform="translate(424 244) rotate(-11)"><rect x="-33" y="-50" width="66" height="100" rx="26"/></g>
+    <g transform="translate(512 278) rotate(19)"><rect x="-33" y="-50" width="66" height="100" rx="26"/></g>
+    <g transform="translate(578 280) rotate(3)"><rect x="-33" y="-50" width="66" height="100" rx="26"/></g>
+    <g transform="translate(662 350) rotate(33)"><rect x="-33" y="-50" width="66" height="100" rx="26"/></g>
+  </g>
+</svg>

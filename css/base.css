@@ -18,7 +18,7 @@ p { text-wrap: pretty; }
 :focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 3px; border-radius: 3px; }
 
 .skip-link { position: fixed; top: -60px; left: var(--space-4); z-index: var(--z-skip);
-  background: var(--navy); color: #fff; padding: var(--space-3) var(--space-5); border-radius: var(--radius-sm);
+  background: var(--brand); color: #fff; padding: var(--space-3) var(--space-5); border-radius: var(--radius-sm);
   transition: top var(--dur) var(--ease); }
 .skip-link:focus { top: var(--space-4); }
 

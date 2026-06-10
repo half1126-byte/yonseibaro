@@ -6,9 +6,13 @@
    ============================================================ */
 :root {
   /* ---- Brand (연세바로치과 네트워크 — 퍼플 BR 모노그램) ---- */
-  --brand:    #6768AB;   /* primary — 딥 퍼플 (로고 B) : dark sections / footer / CTA */
+  --brand:    #6768AB;   /* primary — 딥 퍼플 (로고 B) : CTA / accents */
   --brand-2:  #8387DD;   /* light 퍼플 (로고 R) : accent */
   --brand-d:  #54559A;   /* darker hover/strong */
+  /* 딥 인디고-퍼플 — tu식 다크 섹션 서피스 (퍼플은 그 위 액센트로) */
+  --deep:     #1E1F44;
+  --deep-2:   #16172F;
+  --deep-grad: linear-gradient(180deg, #222354 0%, var(--deep) 38%, var(--deep-2) 100%);
   /* legacy 별칭 — main.css의 var(--green)/var(--gold)가 그대로 퍼플로 매핑됨 */
   --green:    var(--brand);
   --green-2:  #585A97;
@@ -87,6 +91,8 @@
   --ease: cubic-bezier(.16,.84,.44,1);
   --ease-out: cubic-bezier(.22,1,.36,1);
   --ease-emph: cubic-bezier(.2,.8,.2,1);
+  --ease-house: cubic-bezier(.25,1,.5,1);      /* 2d2d 하우스 이징 — 리빌/트랙 공통 */
+  --ease-wipe: cubic-bezier(.785,.135,.15,.86); /* 버튼 채움 와이프 전용 */
   --dur-fast: 200ms; --dur: 460ms; --dur-slow: 900ms; --dur-xslow: 1300ms;
 
   --z-nav: 100; --z-ticker: 105; --z-drawer: 120; --z-float: 90; --z-skip: 200;

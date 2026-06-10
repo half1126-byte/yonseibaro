@@ -13,6 +13,11 @@
     if (header) header.classList.toggle("is-scrolled", y > 8);
     if (progress) { var h = document.documentElement; var max = h.scrollHeight - h.clientHeight; progress.style.width = (max > 0 ? (y / max) * 100 : 0) + "%"; }
     if (toTop) toTop.classList.toggle("is-visible", y > window.innerHeight * 1.2);
+    /* 티커 자동 숨김 (히스테리시스) — 드로어 열림 중엔 유지 */
+    if (!document.body.classList.contains("nav-open")) {
+      if (y > 180) document.body.classList.add("ticker-hidden");
+      else if (y < 90) document.body.classList.remove("ticker-hidden");
+    }
   }
   window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
@@ -24,12 +29,19 @@
   var sections = links.map(function (a) { return document.getElementById(a.getAttribute("href").slice(1)); }).filter(Boolean);
   if ("IntersectionObserver" in window && sections.length) {
     var spy = new IntersectionObserver(function (es) {
-      es.forEach(function (en) { if (en.isIntersecting) links.forEach(function (a) { a.setAttribute("aria-current", a.getAttribute("href") === "#" + en.target.id ? "true" : "false"); }); });
+      es.forEach(function (en) { if (en.isIntersecting) links.forEach(function (a) {
+        if (a.getAttribute("href") === "#" + en.target.id) a.setAttribute("aria-current", "true");
+        else a.removeAttribute("aria-current");
+      }); });
     }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
     sections.forEach(function (s) { spy.observe(s); });
   }
 
-  function open() { drawer.classList.add("is-open"); toggle.setAttribute("aria-expanded", "true"); document.body.classList.add("nav-open"); }
+  function open() {
+    document.body.classList.remove("ticker-hidden");
+    drawer.classList.add("is-open"); toggle.setAttribute("aria-expanded", "true"); document.body.classList.add("nav-open");
+    var first = drawer.querySelector("a"); if (first) first.focus();
+  }
   function close() { drawer.classList.remove("is-open"); toggle.setAttribute("aria-expanded", "false"); document.body.classList.remove("nav-open"); }
   function isOpen() { return drawer && drawer.classList.contains("is-open"); }
   if (toggle) toggle.addEventListener("click", function () { isOpen() ? close() : open(); });

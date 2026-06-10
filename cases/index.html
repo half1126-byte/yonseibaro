@@ -5,11 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>document.documentElement.classList.add('js')</script>
   <title>치료 사례 — 안양 교정 케이스 | 연세바로치과교정과의원</title>
-  <meta name="description" content="인비절라인·브라켓·성장기 교정 치료 사례. 의료광고 사전심의를 거친 사례로 게시되며, 결과는 개인차가 있습니다." />
+  <meta name="description" content="인비절라인·브라켓·성장기 교정 치료 사례. 치료 사례는 개원 후 의료광고 사전심의를 거쳐 게시될 예정입니다. 결과는 개인차가 있습니다." />
   <meta name="robots" content="noindex,nofollow" />
   <meta name="theme-color" content="#6768AB" />
   <link rel="icon" href="../assets/brand/logo.svg" type="image/svg+xml" />
   <link rel="canonical" href="https://yonseibaroanyang.com/cases/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="연세바로치과교정과의원" />
+  <meta property="og:title" content="치료 사례 — 안양 교정 케이스 | 연세바로치과교정과의원" />
+  <meta property="og:description" content="인비절라인·브라켓·성장기 교정 치료 사례. 치료 사례는 개원 후 의료광고 사전심의를 거쳐 게시될 예정입니다. 결과는 개인차가 있습니다." />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:url" content="https://yonseibaroanyang.com/cases/" />
+  <meta property="og:image" content="https://half1126-byte.github.io/yonseibaro/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendard-variable.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/tokens.css" />
@@ -38,8 +48,8 @@
       <a class="wordmark" href="../" aria-label="연세바로치과교정과의원 홈"><img class="wordmark__logo" src="../assets/brand/logo.svg" alt="" width="30" height="26" />연세바로<span class="kr">치과교정과</span></a>
       <nav class="nav-primary" aria-label="주요 메뉴"><ul>
         <li><a href="../about/">원장 소개</a></li>
-        <li><a href="../treatment/invisalign/">진료 안내</a></li>
-        <li><a href="../cases/" aria-current="true">케이스</a></li>
+        <li><a href="../#treatments">진료 안내</a></li>
+        <li><a href="../cases/" aria-current="page">케이스</a></li>
         <li><a href="../#faq">자주 묻는 질문</a></li>
         <li><a href="../#contact">오시는 길</a></li>
       </ul></nav>
@@ -54,7 +64,7 @@
     <li><a href="../treatment/invisalign/">인비절라인</a></li>
     <li><a href="../treatment/bracket/">브라켓 교정</a></li>
     <li><a href="../treatment/children/">성장기 교정</a></li>
-    <li><a href="../cases/">케이스</a></li>
+    <li><a href="../cases/" aria-current="page">케이스</a></li>
     <li><a href="../#faq">자주 묻는 질문</a></li>
     <li><a href="../#contact">오시는 길 · 예약</a></li>
   </ul></nav>
@@ -66,7 +76,7 @@
         <p class="breadcrumb"><a href="../">홈</a> &nbsp;/&nbsp; 케이스</p>
         <span class="section__eyebrow">CASES</span>
         <h1>치료 사례</h1>
-        <p>실제 교정의 변화를, 사전심의를 거친 사례로 보여드립니다.</p>
+        <p>치료 사례는 개원 후 의료광고 사전심의를 거쳐 게시됩니다.</p>
       </div>
     </section>
 
@@ -75,22 +85,35 @@
         <div class="section__head" data-reveal>
           <span class="section__eyebrow">GALLERY</span>
           <h2 class="section__title">사례 보기</h2>
-          <div class="tabs" role="group" aria-label="카테고리">
-            <span class="tab" aria-current="true">전체</span>
-            <span class="tab">인비절라인</span>
-            <span class="tab">브라켓</span>
-            <span class="tab">성장기</span>
-            <span class="tab">성인</span>
+          <div class="tabs" role="group" aria-label="카테고리" data-case-tabs>
+            <button class="tab" type="button" aria-current="true" data-filter="all">전체</button>
+            <button class="tab" type="button" data-filter="invisalign">인비절라인</button>
+            <button class="tab" type="button" data-filter="bracket">브라켓</button>
+            <button class="tab" type="button" data-filter="growth">성장기</button>
+            <button class="tab" type="button" data-filter="adult">성인</button>
           </div>
         </div>
-        <ul class="case-grid" data-stagger>
-          <li class="case-card"><div class="ph ph--4" data-label="BEFORE / AFTER"></div><p class="case-card__tag">총생 · 인비절라인 · 18개월(예시)</p></li>
-          <li class="case-card"><div class="ph ph--4" data-label="BEFORE / AFTER"></div><p class="case-card__tag">전치부 돌출 · 브라켓 · 24개월(예시)</p></li>
-          <li class="case-card"><div class="ph ph--4" data-label="BEFORE / AFTER"></div><p class="case-card__tag">성장기 교정(예시)</p></li>
-          <li class="case-card"><div class="ph ph--4" data-label="BEFORE / AFTER"></div><p class="case-card__tag">전치부 공간 · 인비절라인(예시)</p></li>
-          <li class="case-card"><div class="ph ph--4" data-label="BEFORE / AFTER"></div><p class="case-card__tag">개방교합 · 브라켓(예시)</p></li>
-          <li class="case-card"><div class="ph ph--4" data-label="BEFORE / AFTER"></div><p class="case-card__tag">성인 교정 · 보철 전(예시)</p></li>
+        <div class="ba-wrap" data-reveal>
+          <div class="ba-slider">
+            <img class="ba-slider__after" src="../assets/photo/case-illust-after.svg" alt="교정 후 — 가지런한 치아 배열 일러스트" width="800" height="600" />
+            <img class="ba-slider__before" src="../assets/photo/case-illust-before.svg" alt="교정 전 — 불규칙한 치아 배열 일러스트" width="800" height="600" />
+            <span class="ba-slider__bar" aria-hidden="true"></span>
+            <span class="ba-slider__handle" aria-hidden="true">◂▸</span>
+            <span class="ba-slider__label ba-slider__label--b" aria-hidden="true">BEFORE</span>
+            <span class="ba-slider__label ba-slider__label--a" aria-hidden="true">AFTER</span>
+            <input class="ba-slider__range" type="range" min="0" max="100" value="50" aria-label="교정 전후 비교 슬라이더 (일러스트 예시)" />
+          </div>
+          <p class="disclaimer">※ 위 이미지는 이해를 돕기 위한 일러스트 예시이며 실제 치료 결과가 아닙니다. 실제 전후 사진은 의료광고 사전심의 후 게시됩니다.</p>
+        </div>
+        <ul class="case-grid snap-row" data-stagger data-case-grid data-carousel>
+          <li class="case-card" data-case="invisalign"><div class="ph ph--4" data-label="BEFORE / AFTER"></div><p class="case-card__tag">총생 · 인비절라인 · 18개월(예시)</p></li>
+          <li class="case-card" data-case="bracket"><div class="ph ph--4" data-label="BEFORE / AFTER"></div><p class="case-card__tag">전치부 돌출 · 브라켓 · 24개월(예시)</p></li>
+          <li class="case-card" data-case="growth"><div class="ph ph--4" data-label="BEFORE / AFTER"></div><p class="case-card__tag">성장기 교정(예시)</p></li>
+          <li class="case-card" data-case="invisalign adult"><div class="ph ph--4" data-label="BEFORE / AFTER"></div><p class="case-card__tag">전치부 공간 · 인비절라인(예시)</p></li>
+          <li class="case-card" data-case="bracket"><div class="ph ph--4" data-label="BEFORE / AFTER"></div><p class="case-card__tag">개방교합 · 브라켓(예시)</p></li>
+          <li class="case-card" data-case="adult"><div class="ph ph--4" data-label="BEFORE / AFTER"></div><p class="case-card__tag">성인 교정 · 보철 전(예시)</p></li>
         </ul>
+        <div class="carousel-dots" data-dots role="group" aria-label="슬라이드 위치"></div>
         <p class="disclaimer">※ 본 페이지의 사례는 의료광고 사전심의를 거친 실제 사례로 게시됩니다. 모든 치료 결과는 환자 개인의 구강 상태·협조도에 따라 차이가 있으며, 게시된 사례가 평균적이거나 보편적인 결과를 의미하지 않습니다. 부작용이 발생할 수 있습니다.</p>
       </div>
     </section>
@@ -127,14 +150,15 @@
   </footer>
 
   <nav class="float-cta" aria-label="빠른 연락">
-    <a href="tel:0310000000"><span aria-hidden="true">📞</span>전화</a>
-    <a href="https://pf.kakao.com/" target="_blank" rel="noopener"><span aria-hidden="true">💬</span>카카오</a>
-    <a class="float-cta__primary" href="https://booking.naver.com/" target="_blank" rel="noopener"><span aria-hidden="true">📅</span>네이버 예약</a>
+    <a href="tel:0310000000"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.92v2.18a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 3.37 2 2 0 0 1 4.09 1.2h2.2a2 2 0 0 1 2 1.72c.13.96.35 1.9.66 2.8a2 2 0 0 1-.45 2.11L7.57 8.9a16 16 0 0 0 7.54 7.54l1.06-.93a2 2 0 0 1 2.11-.45c.9.31 1.84.53 2.8.66A2 2 0 0 1 22 16.92Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>전화</a>
+    <a href="https://pf.kakao.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>카카오</a>
+    <a class="float-cta__primary" href="https://booking.naver.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>네이버 예약</a>
   </nav>
   <button class="to-top" type="button" aria-label="맨 위로"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 19V5M12 5l-6 6M12 5l6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 
   <script defer src="../js/nav.js"></script>
   <script defer src="../js/motion.js"></script>
-  <script defer src="../js/cover.js"></script>
+  <script defer src="../js/ux.js"></script>
+  <script defer src="../js/widgets.js"></script>
 </body>
 </html>

@@ -2,8 +2,6 @@
 (function () {
   "use strict";
 
-  document.documentElement.classList.add("js");
-
   function toArray(list) {
     return Array.prototype.slice.call(list || []);
   }
@@ -11,8 +9,8 @@
   function setCurrent(buttons, active) {
     buttons.forEach(function (button) {
       var selected = button.getAttribute("data-filter") === active;
-      button.setAttribute("aria-current", selected ? "true" : "false");
-      button.setAttribute("aria-pressed", selected ? "true" : "false");
+      if (selected) button.setAttribute("aria-current", "true");
+      else button.removeAttribute("aria-current");
     });
   }
 
@@ -99,7 +97,6 @@
     var closeButton = modal.querySelector(".consult-modal__close");
     var dismissButton = modal.querySelector("[data-consult-dismiss]");
     var closeTargets = toArray(modal.querySelectorAll("[data-consult-close]"));
-    var timer = null;
     var lastFocus = null;
     var storageKey = "baroConsultDismissed";
 
@@ -137,7 +134,7 @@
     }
 
     function closeModal(remember) {
-      if (remember) writeDismissed();
+      writeDismissed(); // 어떤 방식으로 닫아도 세션 내 재등장 없음
       modal.classList.remove("is-open");
       modal.setAttribute("aria-hidden", "true");
       document.body.classList.remove("modal-open");
@@ -177,11 +174,25 @@
       }
     });
 
+    /* 강제 팝업 대신 스크롤 깊이 45% 도달 시 1회 제안.
+       앵커 클릭(예약 CTA 등)으로 인한 점프 직후에는 발화 억제 — 행동 중인 사용자를 막지 않음 */
     if (!readDismissed()) {
-      timer = window.setTimeout(openModal, 1400);
-      window.addEventListener("beforeunload", function () {
-        if (timer) window.clearTimeout(timer);
+      var fired = false;
+      var suppressUntil = 0;
+      document.addEventListener("click", function (event) {
+        if (event.target.closest && event.target.closest('a[href*="#"]')) suppressUntil = Date.now() + 1800;
       });
+      var onScrollDepth = function () {
+        if (fired) return;
+        var h = document.documentElement;
+        var max = h.scrollHeight - h.clientHeight;
+        if (max > 0 && (window.scrollY || h.scrollTop) / max > 0.45 && Date.now() > suppressUntil) {
+          fired = true;
+          window.removeEventListener("scroll", onScrollDepth);
+          openModal();
+        }
+      };
+      window.addEventListener("scroll", onScrollDepth, { passive: true });
     }
   }
 

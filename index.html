@@ -3,7 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script>document.documentElement.classList.add('js')</script>
+  <script>
+    document.documentElement.classList.add('js');
+    try {
+      if (!sessionStorage.getItem('baroLoaded') && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+        document.documentElement.classList.add('loading');
+        /* 인라인 페일세이프 — widgets.js 로드 실패 시에도 로더가 페이지를 잠그지 않음 */
+        setTimeout(function () { document.documentElement.classList.remove('loading'); }, 4000);
+      }
+    } catch (e) {}
+  </script>
   <title>연세바로치과교정과의원 | 안양 교정과 전문의 강성태 — 직접 진료</title>
   <meta name="description" content="안양 동안구 교정과 전문의 강성태가 첫 상담부터 유지장치까지 직접 진료합니다. 인비절라인 퍼플 다이아몬드, 디지털 정밀 진단. 평촌·범계 인비절라인·투명교정." />
   <meta name="robots" content="noindex,nofollow" /><!-- DRAFT: 개원·의료광고 심의 후 index,follow -->
@@ -30,7 +39,7 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendard-variable.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&display=swap" rel="stylesheet" />
-  <link rel="preload" as="image" href="assets/photo/orthodontic-hero.png" />
+  <link rel="preload" as="image" href="assets/photo/orthodontic-hero.webp" type="image/webp" />
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/main.css" />
@@ -43,7 +52,7 @@
     "name": "연세바로치과교정과의원", "alternateName": "연세바로치과 안양",
     "url": "https://yonseibaroanyang.com/",
     "description": "안양 동안구 교정과 전문의 단독 개원 클리닉. 교정과 전문의 강성태가 직접 진단·치료합니다.",
-    "image": "https://yonseibaroanyang.com/assets/og-image.jpg",
+    "image": "https://yonseibaroanyang.com/assets/og-image.png",
     "medicalSpecialty": "Orthodontic",
     "telephone": "+82-31-000-0000", "priceRange": "₩₩₩",
     "address": { "@type": "PostalAddress", "addressLocality": "안양시 동안구", "addressRegion": "경기", "addressCountry": "KR" },
@@ -76,6 +85,14 @@
 
 <body>
   <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <!-- 브랜드 로더 (첫 방문 1회 — widgets.js가 종료) -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader__mark">
+      <img src="assets/brand/logo.svg" alt="" width="58" height="52" />
+      <span>Yonsei Baro</span>
+    </div>
+  </div>
 
   <!-- Section 0 — 티커 배너 -->
   <div class="ticker" role="status" aria-label="공지">
@@ -126,7 +143,7 @@
 
   <main id="main">
     <!-- Section 1 — HERO -->
-    <section class="hero" id="hero" aria-labelledby="hero-title">
+    <section class="hero" id="hero" aria-labelledby="hero-title" data-dot="처음">
       <div class="hero__bg" aria-hidden="true"></div>
       <div class="container">
         <span class="hero__eyebrow">YONSEI BARO ORTHODONTICS · 안양 동안구</span>
@@ -144,13 +161,21 @@
         </div>
       </div>
       <figure class="hero__visual" aria-label="디지털 투명교정 상담 이미지">
-        <img src="assets/photo/orthodontic-hero.png" alt="투명 교정 장치와 3D 치아 스캔 화면이 놓인 프리미엄 교정 상담 공간" width="1792" height="1024" />
+        <img src="assets/photo/orthodontic-hero.webp" alt="투명 교정 장치와 3D 치아 스캔 화면이 놓인 프리미엄 교정 상담 공간" width="1792" height="1024" />
       </figure>
       <span class="scroll-cue" aria-hidden="true">SCROLL</span>
     </section>
 
+    <!-- 마퀴 스트립 — 브랜드 키네틱 -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Yonsei Baro Orthodontics</span><span class="ko">교정과 전문의 직접 진료</span><span>Invisalign Purple Diamond</span><span class="ko">안양 동안구 · 범계 · 평촌</span>
+        <span>Yonsei Baro Orthodontics</span><span class="ko">교정과 전문의 직접 진료</span><span>Invisalign Purple Diamond</span><span class="ko">안양 동안구 · 범계 · 평촌</span>
+      </div>
+    </div>
+
     <!-- Section 1.5 — BARO STANDARD -->
-    <section class="section section--editorial" id="standard" aria-labelledby="standard-title">
+    <section class="section section--editorial" id="standard" aria-labelledby="standard-title" data-dot="진료 기준">
       <div class="container">
         <div class="editorial-grid">
           <div data-reveal>
@@ -186,7 +211,7 @@
     </section>
 
     <!-- Section 2 — 왜 교정과 전문의인가 -->
-    <section class="section" id="why" aria-labelledby="why-title" data-cover>
+    <section class="section" id="why" aria-labelledby="why-title" data-cover data-dot="왜 전문의">
       <div class="container">
         <div class="section__head" data-reveal>
           <span class="section__eyebrow">WHY A SPECIALIST</span>
@@ -210,6 +235,34 @@
             <p>3D 스캔과 디지털 시뮬레이션으로 치료 방향을 미리 확인하고 시작합니다. (결과는 개인차가 있습니다)</p>
           </li>
         </ul>
+      </div>
+    </section>
+
+    <!-- Section 2.7 — 숫자로 보는 연세바로 (다크 + 카운트업) -->
+    <section class="section section--navy" id="stats" aria-labelledby="stats-title">
+      <div class="container">
+        <div class="section__head" data-reveal>
+          <span class="section__eyebrow">IN NUMBERS</span>
+          <h2 class="section__title" id="stats-title">숫자로 보는 연세바로</h2>
+        </div>
+        <div class="stats-grid" data-stagger>
+          <div>
+            <span class="stat__n"><span data-count="04">04</span><small>년</small></span>
+            <p class="stat__t"><strong>교정 임상</strong>인천 연세바로치과 · 인비절라인 중심 진료</p>
+          </div>
+          <div>
+            <span class="stat__n"><span data-count="65">65</span><small>평</small></span>
+            <p class="stat__t"><strong>전용 진료 공간</strong>교정 진료에 맞춘 설계</p>
+          </div>
+          <div>
+            <span class="stat__n">2026<small>년</small></span>
+            <p class="stat__t"><strong>안양 동안구 개원</strong>범계·평촌 생활권</p>
+          </div>
+          <div>
+            <span class="stat__n" aria-hidden="true">◆</span>
+            <p class="stat__t"><strong>인비절라인 퍼플 다이아몬드</strong>케이스 수 기반 공급자 등급</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -263,21 +316,22 @@
     </section>
 
     <!-- Section 3 — 진료 안내 -->
-    <section class="section" id="treatments" aria-labelledby="tx-title" data-cover>
+    <section class="section" id="treatments" aria-labelledby="tx-title" data-cover data-dot="진료 안내">
       <div class="container">
         <div class="section__head" data-reveal>
           <span class="section__eyebrow">TREATMENTS</span>
           <h2 class="section__title" id="tx-title">진료 안내</h2>
           <p class="section__lead">어떤 교정이 맞을지, 검사와 상담을 통해 함께 정합니다.</p>
         </div>
-        <ul class="tx-grid" data-stagger>
-          <li class="tx-card"><div class="tx-card__img ph ph--4" data-label="INVISALIGN"><img src="assets/photo/orthodontic-hero.png" alt="투명 교정 장치와 디지털 치아 스캔 상담 이미지" loading="lazy" /></div><div class="tx-card__b"><h3>인비절라인</h3><p>투명교정. 퍼플 다이아몬드 원장이 직접 ClinCheck를 설계합니다.</p><a href="treatment/invisalign/">자세히 보기 →</a></div></li>
+        <ul class="tx-grid snap-row" data-stagger data-carousel>
+          <li class="tx-card"><div class="tx-card__img ph ph--4" data-label="INVISALIGN"><img src="assets/photo/orthodontic-hero.webp" alt="투명 교정 장치와 디지털 치아 스캔 상담 이미지" loading="lazy" /></div><div class="tx-card__b"><h3>인비절라인</h3><p>투명교정. 퍼플 다이아몬드 원장이 직접 ClinCheck를 설계합니다.</p><a href="treatment/invisalign/">자세히 보기 →</a></div></li>
           <li class="tx-card"><div class="tx-card__img ph ph--4" data-label="BRACKET"><img src="assets/photo/facility-board-1.webp" alt="연세바로치과 네트워크 진료 공간과 체어" loading="lazy" /></div><div class="tx-card__b"><h3>브라켓 교정</h3><p>메탈·세라믹·클리피씨. 케이스에 맞는 장치를 선택합니다.</p><a href="treatment/bracket/">자세히 보기 →</a></div></li>
-          <li class="tx-card"><div class="tx-card__img ph ph--4" data-label="PARTIAL"><img src="assets/photo/orthodontic-hero.png" alt="치아 모델과 투명 교정 장치가 놓인 상담 데스크" loading="lazy" /></div><div class="tx-card__b"><h3>부분 교정</h3><p>앞니 중심의 제한적 교정. 적합 여부를 정직하게 진단합니다.</p><a href="#contact">상담 문의 →</a></div></li>
+          <li class="tx-card"><div class="tx-card__img ph ph--4" data-label="PARTIAL"><img src="assets/photo/orthodontic-hero.webp" alt="치아 모델과 투명 교정 장치가 놓인 상담 데스크" loading="lazy" /></div><div class="tx-card__b"><h3>부분 교정</h3><p>앞니 중심의 제한적 교정. 적합 여부를 정직하게 진단합니다.</p><a href="#contact">상담 문의 →</a></div></li>
           <li class="tx-card"><div class="tx-card__img ph ph--4" data-label="CHILDREN"><img src="assets/photo/facility-board-2.webp" alt="연세바로치과 네트워크 대기실과 진료 공간" loading="lazy" /></div><div class="tx-card__b"><h3>성장기 교정</h3><p>초등~고등. 교정 적기를 판단해 꼭 필요한 시기를 안내합니다.</p><a href="treatment/children/">자세히 보기 →</a></div></li>
           <li class="tx-card"><div class="tx-card__img ph ph--4" data-label="ADULT"><img src="assets/photo/facility-board-1.webp" alt="연세바로치과 네트워크 디지털 교정 진료실" loading="lazy" /></div><div class="tx-card__b"><h3>성인 · 중장년 교정</h3><p>보철 전 교정, 전신 건강을 고려한 설계와 유지 관리.</p><a href="#contact">상담 문의 →</a></div></li>
-          <li class="tx-card"><div class="tx-card__img ph ph--4" data-label="CHECK"><img src="assets/photo/orthodontic-hero.png" alt="3D 치아 스캔 화면이 보이는 교정 상담 이미지" loading="lazy" /></div><div class="tx-card__b"><h3>교정 전 검사 · 상담</h3><p>3D 스캔·방사선 정밀 검사 후 원장이 직접 설명합니다.</p><a href="#contact">검사 예약 →</a></div></li>
+          <li class="tx-card"><div class="tx-card__img ph ph--4" data-label="CHECK"><img src="assets/photo/orthodontic-hero.webp" alt="3D 치아 스캔 화면이 보이는 교정 상담 이미지" loading="lazy" /></div><div class="tx-card__b"><h3>교정 전 검사 · 상담</h3><p>3D 스캔·방사선 정밀 검사 후 원장이 직접 설명합니다.</p><a href="#contact">검사 예약 →</a></div></li>
         </ul>
+        <div class="carousel-dots" data-dots role="group" aria-label="슬라이드 위치"></div>
       </div>
     </section>
 
@@ -289,7 +343,8 @@
           <h2 class="section__title" id="compare-title">장치보다 중요한 것은 선택 기준입니다.</h2>
           <p class="section__lead">교정 장치는 목적지가 아니라 도구입니다. 같은 인비절라인이라도 계획이 다르면 결과가 달라지고, 같은 브라켓이라도 조절 방식이 다르면 과정이 달라집니다.</p>
         </div>
-        <div class="compare-wrap" data-reveal>
+        <div class="compare-shell" data-reveal>
+        <div class="compare-wrap">
           <table class="compare-table">
             <caption>교정 방식별 상담 기준</caption>
             <thead>
@@ -328,6 +383,8 @@
             </tbody>
           </table>
         </div>
+        </div>
+        <p class="swipe-hint">표를 옆으로 밀어 보세요</p>
         <div class="choice-notes" data-stagger>
           <article>
             <h3>무리하게 시작하지 않습니다</h3>
@@ -346,7 +403,7 @@
     </section>
 
     <!-- Section 4 — 원장 소개 teaser -->
-    <section class="section" id="doctor" aria-labelledby="dr-title">
+    <section class="section" id="doctor" aria-labelledby="dr-title" data-dot="원장">
       <div class="container">
         <div class="split split--doctor">
           <div class="ph ph--portrait" data-label="DR. 강성태 (실사)" data-reveal></div>
@@ -495,7 +552,7 @@
     </section>
 
     <!-- Section 7 — 케이스 갤러리 -->
-    <section class="section" id="cases" aria-labelledby="cases-title" data-cover>
+    <section class="section" id="cases" aria-labelledby="cases-title" data-cover data-dot="케이스">
       <div class="container">
         <div class="section__head" data-reveal>
           <span class="section__eyebrow">CASES</span>
@@ -510,7 +567,7 @@
             <button class="tab" type="button" data-filter="partial">부분교정</button>
           </div>
         </div>
-        <ul class="case-grid" data-stagger data-case-grid>
+        <ul class="case-grid snap-row" data-stagger data-case-grid data-carousel>
           <li class="case-card" data-case="invisalign"><div class="ph ph--4" data-label="BEFORE / AFTER"></div><p class="case-card__tag">총생 · 인비절라인</p></li>
           <li class="case-card" data-case="bracket adult"><div class="ph ph--4" data-label="BEFORE / AFTER"></div><p class="case-card__tag">전치부 돌출 · 브라켓</p></li>
           <li class="case-card" data-case="growth"><div class="ph ph--4" data-label="BEFORE / AFTER"></div><p class="case-card__tag">성장기 교정</p></li>
@@ -518,6 +575,7 @@
           <li class="case-card" data-case="invisalign adult"><div class="ph ph--4" data-label="BEFORE / AFTER"></div><p class="case-card__tag">경미한 돌출 · 인비절라인</p></li>
           <li class="case-card" data-case="bracket"><div class="ph ph--4" data-label="BEFORE / AFTER"></div><p class="case-card__tag">개방교합 · 브라켓</p></li>
         </ul>
+        <div class="carousel-dots" data-dots role="group" aria-label="슬라이드 위치"></div>
         <div class="case-note-grid" data-stagger>
           <article>
             <span>Case note</span>
@@ -548,11 +606,12 @@
           <h2 class="section__title" id="rv-title">환자분들의 이야기</h2>
           <p class="section__lead">네이버 플레이스 실제 후기로 연동됩니다. (개원 후 업데이트)</p>
         </div>
-        <ul class="rv-grid" data-stagger>
+        <ul class="rv-grid snap-row" data-stagger data-carousel>
           <li class="rv-card"><div class="rv-stars" aria-hidden="true">★★★★★</div><p>상담 때 원장님이 직접 시뮬레이션을 보여주면서 설명해 주셔서 믿음이 갔어요.</p><p class="rv-who">인비절라인 · 네이버 플레이스 후기</p></li>
           <li class="rv-card"><div class="rv-stars" aria-hidden="true">★★★★★</div><p>매번 원장님이 직접 봐주시니까 안심이 됩니다. 과정이 투명해요.</p><p class="rv-who">브라켓 교정 · 네이버 플레이스 후기</p></li>
           <li class="rv-card"><div class="rv-stars" aria-hidden="true">★★★★★</div><p>아이 교정 시기를 솔직하게 말씀해 주셔서 좋았습니다. 무리하게 권하지 않으세요.</p><p class="rv-who">성장기 교정 · 학부모 후기</p></li>
         </ul>
+        <div class="carousel-dots" data-dots role="group" aria-label="슬라이드 위치"></div>
         <p class="disclaimer">※ 후기는 실제 게시 후 연동되며, 개인의 치료 경험으로 결과를 보장하지 않습니다.</p>
       </div>
     </section>
@@ -632,7 +691,7 @@
     </section>
 
     <!-- Section 10 — FAQ -->
-    <section class="section" id="faq" aria-labelledby="faq-title">
+    <section class="section" id="faq" aria-labelledby="faq-title" data-dot="FAQ">
       <div class="container container--narrow">
         <div class="section__head" data-reveal>
           <span class="section__eyebrow">FAQ</span>
@@ -662,8 +721,8 @@
           <p class="section__lead">디지털 교정 장비와 위생 동선을 갖춘 연세바로치과 네트워크의 진료 공간입니다.</p>
         </div>
         <div class="facility-boards" data-stagger>
-          <img class="facility-board" src="assets/photo/facility-board-1.webp" alt="연세바로치과 네트워크 진료 공간 — 외관·접수 데스크·복도·진료실" width="1800" height="800" loading="lazy" />
-          <img class="facility-board" src="assets/photo/facility-board-2.webp" alt="연세바로치과 네트워크 진료 공간 — 입구·대기실·오픈 진료 베이·위생 공간" width="1800" height="800" loading="lazy" />
+          <div class="img-zoom"><img class="facility-board" src="assets/photo/facility-board-1.webp" alt="연세바로치과 네트워크 진료 공간 — 외관·접수 데스크·복도·진료실" width="1800" height="800" loading="lazy" data-lightbox /></div>
+          <div class="img-zoom"><img class="facility-board" src="assets/photo/facility-board-2.webp" alt="연세바로치과 네트워크 진료 공간 — 입구·대기실·오픈 진료 베이·위생 공간" width="1800" height="800" loading="lazy" data-lightbox /></div>
         </div>
         <p class="disclaimer">※ 사진은 연세바로치과 네트워크의 진료 공간이며, 안양 지점은 개원 시 실제 공간 사진으로 업데이트됩니다.</p>
       </div>
@@ -702,8 +761,22 @@
       </div>
     </section>
 
+    <!-- Section 10.9 — 스테이트먼트 (클로징) -->
+    <section class="statement" id="commitment" aria-labelledby="stmt-title">
+      <span class="statement__ghost" aria-hidden="true">Baro</span>
+      <div class="container">
+        <span class="statement__en" data-reveal>Orthodontics only — by the doctor himself.</span>
+        <h2 id="stmt-title" data-reveal>교정만 합니다.<br />그리고 제가 직접 합니다.</h2>
+        <p data-reveal>장치를 권하기 전에 기준부터 설명하는 진료. 첫 상담부터 유지장치까지 교정과 전문의가 직접 책임집니다.</p>
+        <div class="hero__actions" data-reveal>
+          <a class="btn btn--ghost-light btn--lg" href="#contact">상담 예약하기</a>
+          <a class="btn btn--ghost-light btn--lg" href="about/">원장 소개 보기</a>
+        </div>
+      </div>
+    </section>
+
     <!-- Section 11 — 오시는 길 · 예약 -->
-    <section class="section" id="contact" aria-labelledby="contact-title">
+    <section class="section" id="contact" aria-labelledby="contact-title" data-dot="오시는 길">
       <div class="container">
         <div class="section__head" data-reveal>
           <span class="section__eyebrow">VISIT &amp; BOOKING</span>
@@ -711,7 +784,13 @@
         </div>
         <div class="split">
           <div data-reveal>
-            <div class="ph ph--4" data-label="MAP (네이버/카카오 지도)"></div>
+            <div class="map-card" role="img" aria-label="위치 안내 — 경기 안양시 동안구 범계·평촌 생활권, 상세 주소는 개원 시 공개">
+              <div class="map-card__center">
+                <span class="map-card__pin" aria-hidden="true"></span>
+                <strong>Beomgye · Pyeongchon</strong>
+                <p>경기 안양시 동안구 범계·평촌 생활권<br />상세 주소·지도는 개원 시 공개됩니다</p>
+              </div>
+            </div>
             <div class="contact-info">
               <dl>
                 <dt>주소</dt><dd>경기 안양시 동안구 (상세주소 개원 시 확정)</dd>
@@ -786,5 +865,6 @@
   <script defer src="js/motion.js"></script>
   <script defer src="js/cover.js"></script>
   <script defer src="js/ux.js"></script>
+  <script defer src="js/widgets.js"></script>
 </body>
 </html>
