@@ -1,0 +1,7 @@
+# 내부 기획/검수 문서 — 공개 repo 제외 (로컬 전용)
+*.md
+
+# 스크래치/임시
+*.output
+.DS_Store
+Thumbs.db

@@ -1,0 +1,93 @@
+/* ============================================================
+   연세바로치과교정과의원 — Design Tokens
+   2D치과(2d2d.co.kr) 팔레트 정밀 매칭:
+   웜 오프화이트 + 딥 에메랄드 그린(#004941) + 골드(#D39D49) + 차콜.
+   폰트 DM Sans + Noto Sans KR. 큰 타이포 · 넉넉한 여백 · 플랫/헤어라인.
+   ============================================================ */
+:root {
+  /* ---- Brand (연세바로치과 네트워크 — 퍼플 BR 모노그램) ---- */
+  --brand:    #6768AB;   /* primary — 딥 퍼플 (로고 B) : dark sections / footer / CTA */
+  --brand-2:  #8387DD;   /* light 퍼플 (로고 R) : accent */
+  --brand-d:  #54559A;   /* darker hover/strong */
+  /* legacy 별칭 — main.css의 var(--green)/var(--gold)가 그대로 퍼플로 매핑됨 */
+  --green:    var(--brand);
+  --green-2:  #585A97;
+  --green-3:  #6E6FB2;
+  --gold:     var(--brand-2);
+  --gold-soft:#E4E3F4;
+
+  /* ---- Ink (charcoal text) ---- */
+  --ink-900: #1C1C1C;   /* headlines */
+  --ink-700: #313131;   /* strong body */
+  --ink-600: #4A4A4A;
+  --ink-500: #6E6E6E;   /* secondary */
+  --ink-300: #A6A6A6;   /* captions / meta */
+  --ink-100: #DCDAD5;
+  --black:   #141414;
+
+  /* ---- Light base (warm) ---- */
+  --paper:    #FFFFFF;
+  --paper-2:  #FAFAFD;   /* 퍼플 틴트 오프화이트 밴드 */
+  --paper-3:  #F1F0F8;
+  --white:    #FFFFFF;
+
+  /* aliases for shared components */
+  --accent:        var(--gold);
+  --accent-strong: var(--brand-d);
+  --accent-soft:   var(--gold-soft);
+
+  /* ---- Lines / overlays ---- */
+  --line:        rgba(28,28,28,.10);
+  --line-2:      rgba(28,28,28,.16);
+  --line-strong: rgba(28,28,28,.30);
+  --on-dark:     rgba(255,255,255,.85);
+  --on-dark-dim: rgba(255,255,255,.55);
+  --on-dark-line:rgba(255,255,255,.16);
+  --scrim: linear-gradient(180deg, rgba(30,28,60,0) 0%, rgba(30,28,60,.55) 100%);
+  --focus-ring: #6768AB;
+
+  /* ---- Typography (Pretendard 본문 + Cormorant 세리프 액센트) ---- */
+  --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-num: "Pretendard Variable", "Pretendard", var(--font-sans);
+
+  --fs-display: clamp(3rem, 8.5vw, 8rem);
+  --fs-h2:      clamp(2.125rem, 5vw, 4.5rem);
+  --fs-h3:      clamp(1.375rem, 2.4vw, 2rem);
+  --fs-lead:    clamp(1.125rem, 1.6vw, 1.4375rem);
+  --fs-body:    1.0625rem;
+  --fs-small:   0.9375rem;
+  --fs-eyebrow: 0.72rem;
+  --fs-bignum:  clamp(2.5rem, 6vw, 5.5rem);
+
+  --lh-tight: 1.1; --lh-display: 1.06; --lh-snug: 1.36; --lh-body: 1.8;
+  --tracking-display: -0.035em; --tracking-tight: -0.018em;
+  --tracking-wide: 0.34em; --tracking-eyebrow: 0.26em;
+  --w-reg: 400; --w-med: 500; --w-semi: 600; --w-bold: 700; --w-black: 800;
+
+  /* ---- Spacing (airy) ---- */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 36px; --space-7: 56px; --space-8: 80px;
+  --space-9: 120px; --space-10: 160px; --space-11: 220px;
+
+  /* ---- Layout ---- */
+  --section-pad-y: clamp(96px, 13vw, 220px);
+  --container: 1280px;
+  --container-narrow: 800px;
+  --gutter: clamp(22px, 6vw, 88px);
+  --nav-h: 76px;
+  --ticker-h: 36px;
+
+  --radius-sm: 0px; --radius-md: 0px; --radius-lg: 0px; --radius-pill: 999px;
+
+  --shadow-sm:   0 1px 0 rgba(28,28,28,.04);
+  --shadow-card: 0 18px 40px -28px rgba(28,28,28,.22);
+  --shadow-lift: 0 24px 50px -28px rgba(28,28,28,.28);
+
+  --ease: cubic-bezier(.16,.84,.44,1);
+  --ease-out: cubic-bezier(.22,1,.36,1);
+  --ease-emph: cubic-bezier(.2,.8,.2,1);
+  --dur-fast: 200ms; --dur: 460ms; --dur-slow: 900ms; --dur-xslow: 1300ms;
+
+  --z-nav: 100; --z-ticker: 105; --z-drawer: 120; --z-float: 90; --z-skip: 200;
+}
