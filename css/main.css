@@ -131,6 +131,12 @@ body.nav-open { overflow:hidden; }
 @media (min-width:1000px){
   .tx-card--featured { grid-column: span 2; background: var(--accent-tint); border-color: var(--accent-2); }
   .tx-card--featured h3 { font-size: clamp(1.5rem, 2vw, 1.9rem); }
+  /* 검사·상담 = 풀폭 클로징 카드 (고아 행 방지 + 모든 진료의 공통 입구) */
+  .tx-card--wide { grid-column: 1 / -1; }
+  .tx-card--wide .tx-card__b { display:flex; align-items:center; gap: var(--space-6); }
+  .tx-card--wide .tx-ico { margin-bottom:0; flex:none; }
+  .tx-card--wide p { flex:1; margin:0; }
+  .tx-card--wide a { white-space:nowrap; }
 }
 
 /* ---- Hero (원장 중심 신뢰형 스플릿 — 개선진단 5-1) ---- */
