@@ -249,6 +249,7 @@
     function close(never) {
       stopAuto();
       pop.classList.remove("is-open");
+      doc.body.classList.remove("modal-open");
       try {
         window.sessionStorage.setItem(SESSION_KEY, "1");
         if (never) window.localStorage.setItem(NEVER_KEY, "1");
@@ -264,9 +265,16 @@
     var neverBtn = pop.querySelector("[data-np-never]"), closeBtn = pop.querySelector("[data-np-close]");
     if (neverBtn) neverBtn.addEventListener("click", function () { close(true); });
     if (closeBtn) closeBtn.addEventListener("click", function () { close(false); });
+    /* 센터 모달: 백드롭 클릭/Esc로 닫기 */
+    var backdrop = pop.querySelector("[data-np-backdrop]");
+    if (backdrop) backdrop.addEventListener("click", function () { close(false); });
+    doc.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && pop.classList.contains("is-open")) close(false);
+    });
 
     window.setTimeout(function () {
       pop.hidden = false;
+      doc.body.classList.add("modal-open");
       window.requestAnimationFrame(function () { pop.classList.add("is-open"); });
       startAuto();
     }, 1100);

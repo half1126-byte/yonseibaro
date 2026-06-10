@@ -843,6 +843,8 @@
 
   <!-- TU식 공지 팝업 — 여러 장 슬라이드 + 칩 탭 + 다시보지않기 (widgets.js) -->
   <aside class="notice-pop" data-notice-pop aria-label="안내 팝업" hidden>
+    <div class="notice-pop__backdrop" data-np-backdrop aria-hidden="true"></div>
+    <div class="notice-pop__card" role="dialog" aria-label="연세바로치과 안내">
     <div class="notice-pop__tabs">
       <button type="button" class="notice-pop__arrow" data-np-prev aria-label="이전 안내">‹</button>
       <button type="button" data-np-tab="0" aria-current="true">개원 안내</button>
@@ -878,6 +880,7 @@
     <div class="notice-pop__foot">
       <button type="button" data-np-never>다시 보지 않기</button>
       <button type="button" data-np-close>닫기</button>
+    </div>
     </div>
   </aside>
 

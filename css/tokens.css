@@ -35,10 +35,10 @@
   --ink-100: #E4E4E1;
   --black:   #141414;
 
-  /* ---- Light base ---- */
-  --paper:    #FFFFFF;
-  --paper-2:  #F7F7F4;   /* 웜 그레이 밴드 */
-  --paper-3:  #EFEFEA;
+  /* ---- Light base — 2d2d(이도치과) 웜 아이보리 명함지 톤 ---- */
+  --paper:    #FBFAF7;   /* 캔버스 (2d2d --2d-light-gold-color 실측값) */
+  --paper-2:  #F4F2EC;   /* 웜 밴드 */
+  --paper-3:  #ECE9E0;
   --white:    #FFFFFF;
 
   /* aliases */
