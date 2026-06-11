@@ -1,7 +1,7 @@
 /* ============================================================
    연세바로치과교정과의원 — Design Tokens (TU-style light system)
    화이트 캔버스 + 비비드 퍼플 액센트 디스플레이 타이포.
-   폰트: Italiana(영문 디스플레이) · Noto Serif KR(워드마크/인용) · Pretendard(본문).
+   폰트: Pretendard(정보·본문) · Noto Serif KR(원장 철학·인용 전용).
    레퍼런스: tudentalclinic.com (라이트 테마 — 컬러드 디스플레이 / 단일 액센트 규율)
    ============================================================ */
 :root {
@@ -62,7 +62,6 @@
   --font-krserif: "Noto Serif KR", "Nanum Myeongjo", Georgia, serif;  /* 철학·인용 전용 */
   --font-num: var(--font-sans);
 
-  --fs-wordmark: clamp(3.2rem, 15vw, 15.5rem);  /* 히어로 자이언트 워드마크 (YONSEI BARO 풀블리드 — Pretendard 실측) */
   --fs-display: clamp(2.6rem, 6.5vw, 6rem);
   --fs-h2:      clamp(1.9rem, 4.2vw, 3.4rem);
   --fs-h3:      clamp(1.25rem, 2.2vw, 1.7rem);
@@ -75,7 +74,6 @@
   --lh-tight: 1.16; --lh-display: 1.0; --lh-snug: 1.45; --lh-body: 1.8;
   --tracking-display: -0.045em;  /* TU식 타이트닝 (한글 헤드라인) */
   --tracking-tight: -0.03em;
-  --tracking-en: 0.02em;         /* Italiana 영문 디스플레이 */
   --tracking-wide: 0.34em; --tracking-eyebrow: 0.26em;
   --w-reg: 400; --w-med: 500; --w-semi: 600; --w-bold: 700; --w-black: 800;
 
@@ -90,7 +88,6 @@
   --container-narrow: 800px;
   --gutter: clamp(22px, 6vw, 88px);
   --nav-h: 72px;
-  --ticker-h: 0px; /* 티커 제거 (TU 미니멀 크롬) */
 
   --radius-sm: 4px; --radius-md: 8px; --radius-lg: 18px; --radius-pill: 999px;
 
@@ -106,5 +103,5 @@
   --ease-wipe: cubic-bezier(.785,.135,.15,.86);
   --dur-fast: 200ms; --dur: 460ms; --dur-slow: 900ms; --dur-xslow: 1300ms;
 
-  --z-nav: 100; --z-ticker: 105; --z-drawer: 120; --z-float: 90; --z-skip: 200;
+  --z-nav: 100; --z-drawer: 120; --z-float: 90; --z-skip: 200;
 }

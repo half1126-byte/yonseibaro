@@ -1,4 +1,4 @@
-/* widgets — 카운트업 · 도트네비 · 서브네비 스파이 · 캐러셀 도트 · BA 슬라이더 · 라이트박스 · 로더 · 히어로 패럴랙스
+/* widgets — 도트네비 · 서브네비 스파이 · 캐러셀 도트 · BA 슬라이더 · 라이트박스 · 로더 · 공지팝업 · site-config 주입 · 히어로 패럴랙스
    전부 존재 가드 — 페이지에 해당 요소 없으면 무동작. 바닐라 / 의존성 0. */
 (function () {
   "use strict";
@@ -13,42 +13,18 @@
     var html = doc.documentElement;
     if (!html.classList.contains("loading")) return;
     var finish = function () {
+      if (!html.classList.contains("loading")) return;
       html.classList.remove("loading");
       try { window.sessionStorage.setItem("baroLoaded", "1"); } catch (e) {}
+      /* loading 중 overflow:hidden이 첫 방문 ../#fragment 점프를 삼킴 — 로더 해제 후 복원 */
+      if (window.location.hash) {
+        var target = doc.getElementById(window.location.hash.slice(1));
+        if (target) target.scrollIntoView({ behavior: "auto", block: "start" });
+      }
     };
     if (doc.readyState === "complete") window.setTimeout(finish, 600);
     else window.addEventListener("load", function () { window.setTimeout(finish, 600); });
     window.setTimeout(finish, 3200); // 페일세이프
-  })();
-
-  /* ---- 카운트업 [data-count] ---- */
-  (function countUp() {
-    var els = $$("[data-count]");
-    if (!els.length) return;
-    function setFinal(el) { el.textContent = el.getAttribute("data-count"); }
-    if (reduce || !hasIO) { els.forEach(setFinal); return; }
-    function animate(el) {
-      var target = parseInt(el.getAttribute("data-count"), 10);
-      if (isNaN(target)) { setFinal(el); return; }
-      var dur = 1400, start = null;
-      var pad = (el.getAttribute("data-count").charAt(0) === "0") ? el.getAttribute("data-count").length : 0;
-      function frame(ts) {
-        if (!start) start = ts;
-        var p = Math.min((ts - start) / dur, 1);
-        var eased = 1 - Math.pow(1 - p, 4);
-        var v = String(Math.round(target * eased));
-        while (pad && v.length < pad) v = "0" + v;
-        el.textContent = v;
-        if (p < 1) window.requestAnimationFrame(frame);
-      }
-      window.requestAnimationFrame(frame);
-    }
-    var io = new IntersectionObserver(function (entries, obs) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) { animate(en.target); obs.unobserve(en.target); }
-      });
-    }, { threshold: 0.5 });
-    els.forEach(function (el) { io.observe(el); });
   })();
 
   /* ---- 도트 네비 — [data-dot] 섹션 인디케이터 (데스크톱, CSS가 노출 제어) ---- */
@@ -222,8 +198,8 @@
   (function noticePop() {
     var pop = doc.querySelector("[data-notice-pop]");
     if (!pop) return;
-    /* 개원 정보 확정 전 팝업 비활성 (site-config.showPopup) */
-    if ((window.BARO_CONFIG || {}).showPopup === false) return;
+    /* 명시적 opt-in만 표시 — config 누락/로드 실패 시에도 안 뜸 (fail-closed) */
+    if ((window.BARO_CONFIG || {}).showPopup !== true) return;
     var NEVER_KEY = "baroNoticeNever", SESSION_KEY = "baroNoticeClosed";
     try {
       if (window.localStorage.getItem(NEVER_KEY) === "1") return;
@@ -282,76 +258,92 @@
     }, 1100);
   })();
 
-  /* ---- site-config 적용: 실제 전환 정보 주입 + CTA 클릭 트래킹 (개선진단 6-2/6-5) ---- */
+  /* ---- site-config 적용: 실제 전환 정보 주입 + CTA 클릭 트래킹 (개선진단 6-2/6-5)
+     기능별 try/catch 격리 — 한 항목의 오타(예: tel 따옴표 누락)가 나머지 주입을 죽이지 않게 ---- */
   (function siteConfig() {
     var cfg = window.BARO_CONFIG || {};
+    function str(v) { return v == null ? "" : String(v); }
+    function safe(fn) { try { fn(); } catch (e) { if (window.console && console.error) console.error("site-config:", e); } }
+    var tel = str(cfg.tel), naver = str(cfg.naverBooking), kakao = str(cfg.kakaoChannel);
+    var address = str(cfg.address), mapUrl = str(cfg.mapEmbedUrl), ga4 = str(cfg.ga4);
 
     /* GA4 — 측정 ID 입력 시에만 로드 */
-    if (cfg.ga4) {
+    safe(function () {
+      if (!ga4) return;
       var gs = doc.createElement("script");
       gs.async = true;
-      gs.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(cfg.ga4);
+      gs.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(ga4);
       doc.head.appendChild(gs);
       window.dataLayer = window.dataLayer || [];
       window.gtag = function () { window.dataLayer.push(arguments); };
       window.gtag("js", new Date());
-      window.gtag("config", cfg.ga4);
-    }
+      window.gtag("config", ga4);
+    });
     function track(name, label) {
-      if (window.gtag && cfg.ga4) window.gtag("event", name, { event_label: label || "" });
+      try { if (window.gtag && ga4) window.gtag("event", name, { event_label: label || "" }); } catch (e) {}
     }
 
     /* CTA href 주입 — config가 비어 있으면 기존 placeholder 유지 */
-    var hrefMap = {
-      tel: cfg.tel ? "tel:" + cfg.tel.replace(/[^0-9+]/g, "") : null,
-      naver: cfg.naverBooking || null,
-      kakao: cfg.kakaoChannel || null
-    };
-    $$("[data-cta]").forEach(function (a) {
-      var kind = a.getAttribute("data-cta");
-      if (hrefMap[kind]) {
-        a.setAttribute("href", hrefMap[kind]);
-        if (kind !== "tel") { a.setAttribute("target", "_blank"); a.setAttribute("rel", "noopener"); }
-      }
-      a.addEventListener("click", function () { track("cta_click", kind); });
-    });
-    if (cfg.tel) {
-      $$(".num a, .contact-info .num a").forEach(function (a) {
-        if ((a.getAttribute("href") || "").indexOf("tel:") === 0) a.textContent = cfg.tel;
+    safe(function () {
+      var hrefMap = {
+        tel: tel ? "tel:" + tel.replace(/[^0-9+]/g, "") : null,
+        naver: naver || null,
+        kakao: kakao || null
+      };
+      $$("[data-cta]").forEach(function (a) {
+        var kind = a.getAttribute("data-cta");
+        if (hrefMap[kind]) {
+          a.setAttribute("href", hrefMap[kind]);
+          if (kind !== "tel") { a.setAttribute("target", "_blank"); a.setAttribute("rel", "noopener"); }
+        }
+        a.addEventListener("click", function () { track("cta_click", kind); });
       });
-    }
-    if (cfg.address) {
-      $$("[data-config-address]").forEach(function (el) { el.textContent = cfg.address; });
-    }
+    });
+    safe(function () {
+      if (!tel) return;
+      $$(".num a, .contact-info .num a").forEach(function (a) {
+        if ((a.getAttribute("href") || "").indexOf("tel:") === 0) a.textContent = tel;
+      });
+      /* 푸터 등 텍스트 전화 표기 — [data-config-tel] */
+      $$("[data-config-tel]").forEach(function (el) { el.textContent = tel; });
+    });
+    safe(function () {
+      if (!address) return;
+      $$("[data-config-address]").forEach(function (el) { el.textContent = address; });
+    });
 
     /* 지도 임베드 — URL 입력 시 맵 카드를 실제 지도로 교체 */
-    var mapCard = doc.querySelector(".map-card");
-    if (cfg.mapEmbedUrl && mapCard) {
+    safe(function () {
+      var mapCard = doc.querySelector(".map-card");
+      if (!mapUrl || !mapCard) return;
       var frame = doc.createElement("iframe");
-      frame.src = cfg.mapEmbedUrl;
+      frame.src = mapUrl;
       frame.title = "오시는 길 지도";
       frame.loading = "lazy";
       frame.style.cssText = "width:100%;aspect-ratio:4/3;border:0;display:block;";
       mapCard.replaceWith(frame);
-    }
+    });
 
     /* 관심 이벤트 — FAQ 펼침 / 원장 소개 / 진료별 클릭 (3차 검수 6-2) */
-    $$(".faq-item summary").forEach(function (sm) {
-      sm.addEventListener("click", function () { track("faq_open", sm.textContent.trim().slice(0, 30)); });
-    });
-    $$('a[href*="about"]').forEach(function (a) {
-      a.addEventListener("click", function () { track("doctor_view", "about"); });
-    });
-    $$(".tx-card a").forEach(function (a) {
-      a.addEventListener("click", function () {
-        var card = a.closest(".tx-card");
-        var name = card && card.querySelector("h3") ? card.querySelector("h3").textContent.trim() : "";
-        track("treatment_click", name);
+    safe(function () {
+      $$(".faq-item summary").forEach(function (sm) {
+        sm.addEventListener("click", function () { track("faq_open", sm.textContent.trim().slice(0, 30)); });
+      });
+      $$('a[href*="about"]').forEach(function (a) {
+        a.addEventListener("click", function () { track("doctor_view", "about"); });
+      });
+      $$(".tx-card a").forEach(function (a) {
+        a.addEventListener("click", function () {
+          var card = a.closest(".tx-card");
+          var name = card && card.querySelector("h3") ? card.querySelector("h3").textContent.trim() : "";
+          track("treatment_click", name);
+        });
       });
     });
 
     /* 스크롤 깊이 25/50/75/100 (각 1회) + 예약 영역 도달 */
-    if (cfg.ga4) {
+    safe(function () {
+      if (!ga4) return;
       var marks = [25, 50, 75, 100], fired = {};
       window.addEventListener("scroll", function () {
         var h = doc.documentElement;
@@ -371,10 +363,11 @@
         }, { threshold: 0.3 });
         bio.observe(booking);
       }
-    }
+    });
 
     /* 시안 모드 고지 — 더미 정보가 화면에 노출될 때 명시 (3차 검수 3-1) */
-    if (cfg.draftInfo) {
+    safe(function () {
+      if (!cfg.draftInfo) return;
       var note = "※ 본 페이지의 전화번호·주소·예약 링크는 시안 확인용 임시 정보입니다. 실제 정보는 개원 시 확정됩니다.";
       var contactInfo = doc.querySelector(".contact-info");
       /* 정적 고지가 이미 있으면 중복 주입 안 함 (JS 실패 대비 폴백은 정적 쪽) */
@@ -386,13 +379,13 @@
       }
       var footBottom = doc.querySelector(".footer-bottom p");
       if (footBottom) footBottom.textContent = note + " 의료광고 관련 표현·사례는 사전심의 후 게시됩니다.";
-    }
+    });
   })();
 
-  /* ---- 히어로 패럴랙스 (데스크톱 — 비주얼이 스크롤의 12%만 따라옴) ---- */
+  /* ---- 히어로 패럴랙스 (데스크톱 — 원장 포트레이트가 스크롤의 12%만 따라옴) ---- */
   (function heroParallax() {
     if (reduce || !window.matchMedia("(min-width:1000px)").matches) return;
-    var v = doc.querySelector(".hero__visual img");
+    var v = doc.querySelector(".hero__portrait");
     if (!v) return;
     var ticking = false;
     function frame() {

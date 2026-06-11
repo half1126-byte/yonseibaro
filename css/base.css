@@ -1,7 +1,7 @@
 /* base — reset · type · a11y · reduced-motion */
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--ticker-h) + var(--nav-h) + 8px); }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--nav-h) + 8px); }
 body {
   font-family: var(--font-sans); font-size: var(--fs-body); line-height: var(--lh-body);
   color: var(--ink-700); background: var(--paper); -webkit-font-smoothing: antialiased;
