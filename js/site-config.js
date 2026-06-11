@@ -5,7 +5,7 @@
       ④ <meta name="robots"> noindex 6페이지  ⑤ robots.txt */
 window.BARO_CONFIG = {
   draftInfo: true,    // true면 화면에 "시안용 임시 정보" 고지 자동 표시 — 실정보 입력 시 false로
-  showPopup: false,   // true로 바꿔야만 공지 팝업 표시 (기본 꺼짐 — config 로드 실패 시에도 안 뜸)
+  showPopup: true,    // 공지 팝업 표시 (개원 안내 3슬라이드) — false면 즉시 비활성
 
   tel: "031-000-0000",  // 더미(000 국번 = 무효) — 실제 대표번호로 교체. 따옴표 필수
   naverBooking: "",     // 실제 네이버 예약 URL 입력 전까지 비움 → CTA는 #contact 앵커 유지
