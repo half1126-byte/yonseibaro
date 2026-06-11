@@ -28,8 +28,8 @@
   background-image: linear-gradient(90deg, rgba(75,74,120,.30), rgba(75,74,120,.10) 40%, transparent);
   background-size: 100% 1px; background-repeat: no-repeat; background-position: 0 0; }
 .section__kicker { display:flex; align-items:baseline; gap: var(--space-5); margin-bottom: var(--space-5); }
-.section__num { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight:700;
-  font-size: var(--fs-bignum); line-height:1; letter-spacing:-.02em; color: var(--accent-faint); }
+.section__num { font-family: var(--font-serif); font-weight:500;
+  font-size: var(--fs-bignum); line-height:1; letter-spacing:-.01em; color: var(--accent-faint); }
 .section__kicker .section__eyebrow { margin-bottom:0; }
 .section__eyebrow { display:inline-block; font-size: var(--fs-eyebrow); letter-spacing: var(--tracking-eyebrow);
   text-transform:uppercase; color: var(--ink-500); font-weight: var(--w-semi); margin-bottom: var(--space-5); }
@@ -118,40 +118,44 @@ body.nav-open { overflow:hidden; }
 .tx-ico { display:block; width:33px; height:33px; color: var(--accent); margin-bottom: var(--space-4); }
 .tx-ico svg { width:100%; height:100%; display:block; }
 
-/* ---- Hero (원장 중심 신뢰형 스플릿 — 개선진단 5-1) ---- */
-.hero { position:relative; background: var(--paper); color: var(--ink-900); overflow:hidden; display:flex; align-items:center;
-  min-height:86svh; padding: calc(var(--nav-h) + clamp(40px, 7vw, 96px)) 0 clamp(56px, 7vw, 110px); }
-/* YONSEI BARO — 배경 장식으로 강등 (저불투명, 모바일 숨김) */
-.hero__bgmark { position:absolute; left:50%; bottom: clamp(10px, 3vw, 36px); transform:translateX(-50%); z-index:0;
-  font-weight:800; font-size: clamp(3.4rem, 8.6vw, 8.4rem); line-height:1; letter-spacing:-.02em;
-  color: var(--accent); opacity:.05; white-space:nowrap; pointer-events:none; user-select:none; }
-.hero__grid { position:relative; z-index:1; display:grid; grid-template-columns:1fr; gap: clamp(36px, 5vw, 72px); align-items:center; }
+/* ---- Hero — 풀블리드 시네마 (이도 폼팩터: 100svh 영상 + 이중 스크림 네이비 캐스트 + 하단 카피) ---- */
+.hero { position:relative; background: var(--deep); color:#fff; overflow:hidden; display:flex; align-items:flex-end;
+  min-height:100svh; padding: calc(var(--nav-h) + 40px) 0 clamp(72px, 11vh, 148px); }
+.hero__bg { position:absolute; inset:0; z-index:0; }
+.hero__bg video { width:100%; height:100%; object-fit:cover; transform: scale(1); }
+/* 이중 스크림 — 세로(하단 카피 가독) + 가로(좌측 강조), 네이비 캐스트로 blackfilm을 브랜드 톤으로 그레이딩 */
+.hero__bg::after { content:""; position:absolute; inset:0;
+  background:
+    linear-gradient(180deg, rgba(24,26,49,.30) 0%, rgba(24,26,49,.38) 52%, rgba(24,26,49,.82) 100%),
+    linear-gradient(90deg, rgba(24,26,49,.58) 0%, rgba(24,26,49,.2) 46%, rgba(24,26,49,0) 72%); }
+.hero__copy { position:relative; z-index:1; }
 .hero__label { display:inline-block; font-size: var(--fs-eyebrow); letter-spacing: var(--tracking-eyebrow); text-transform:uppercase;
-  color: var(--ink-500); font-weight: var(--w-semi); margin-bottom: var(--space-5); }
-.hero__label::before { content:""; display:inline-block; width:22px; height:1px; background: var(--accent); vertical-align:middle; margin-right:10px; }
-/* H1 절충안 (2차 진단 5순위): 첫 줄 Pretendard 명확하게 / "제가 직접 봅니다"만 명조로 깊이 */
-.hero h1 { font-family: var(--font-sans); font-weight:750; font-size: clamp(2.1rem, 3.9vw, 3.6rem); line-height:1.28; letter-spacing: var(--tracking-display); color: var(--ink-900); }
-.hero h1 .accent { font-family: var(--font-krserif); font-weight:600; letter-spacing:-.015em; color: var(--accent); }
-.hero__sub { color: var(--ink-500); font-size: var(--fs-lead); line-height: var(--lh-snug); margin-top: var(--space-5); max-width:46ch; }
+  color: var(--on-dark-dim); font-weight: var(--w-semi); margin-bottom: var(--space-5); }
+.hero__label::before { content:""; display:inline-block; width:22px; height:1px; background: var(--accent-2); vertical-align:middle; margin-right:10px; }
+/* H1: 첫 줄 Pretendard / "제가 직접 봅니다"만 명조 — 다크 위 화이트 + 페리윙클 */
+.hero h1 { font-family: var(--font-sans); font-weight:750; font-size: clamp(2.3rem, 4.4vw, 4.1rem); line-height:1.24; letter-spacing: var(--tracking-display); color:#fff; max-width:18ch; }
+.hero h1 .accent { font-family: var(--font-serif); font-style:italic; font-weight:600; letter-spacing:-.01em; color: var(--accent-2); }
+.hero__sub { color: var(--on-dark-dim); font-size: var(--fs-lead); line-height: var(--lh-snug); margin-top: var(--space-5); max-width:46ch; }
 .hero__actions { display:flex; flex-wrap:wrap; gap: var(--space-4); margin-top: var(--space-7); }
-/* 고민 바로가기 칩 — 본론(가이드 카드) 직행 (전환형 재배치) */
+/* 고민 바로가기 칩 — 본론(가이드 카드) 직행, 다크 히어로 변형 */
 .hero__chips { display:flex; flex-wrap:wrap; align-items:center; gap: var(--space-3); margin-top: var(--space-7); }
-.hero__chips span { font-size:.78rem; letter-spacing:.08em; color: var(--ink-300); margin-right: var(--space-2); }
-.hero__chips a { font-size: var(--fs-small); color: var(--ink-700); border:1px solid var(--line-2); border-radius:999px; padding:8px 16px;
+.hero__chips span { font-size:.78rem; letter-spacing:.08em; color: rgba(255,255,255,.55); margin-right: var(--space-2); }
+.hero__chips a { font-size: var(--fs-small); color: rgba(255,255,255,.92); border:1px solid rgba(255,255,255,.34); border-radius:999px; padding:8px 16px;
   transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); }
-.hero__chips a:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-tint); }
-.hero__portrait { width:100%; max-width:430px; justify-self:center; margin:0; }
-.hero__portrait .ph { aspect-ratio:3/4; }
-.hero__portrait figcaption { margin-top: var(--space-3); font-size: var(--fs-small); color: var(--ink-500); text-align:center; }
-@media (min-width:980px){ .hero__grid{ grid-template-columns:1.15fr .85fr; } .hero__portrait{ justify-self:end; } }
+.hero__chips a:hover { border-color:#fff; background: rgba(255,255,255,.14); color:#fff; }
+/* 스크롤 큐 (이도 — letter-spacing .36em) */
+.hero__cue { position:absolute; left:50%; bottom: clamp(16px, 3vh, 30px); transform:translateX(-50%); z-index:1;
+  font-size:.66rem; letter-spacing:.36em; color: rgba(255,255,255,.5); text-transform:uppercase; padding-left:.36em; }
 @media (max-width:979px){
-  .hero__bgmark { display:none; }
-  /* 모바일: 실사 입수 전까지 포트레이트 숨김 — 빈 플레이스홀더가 첫 화면을 먹고
-     "제가 직접 봅니다" 카피와 모순 (Codex CRO 리뷰). 실사 교체 시 아래 줄 복원:
-     .hero__portrait { order:-1; max-width: clamp(180px, calc(34vh * 0.75), 300px); } */
-  .hero__portrait { display:none; }
   .hero__actions .btn { flex:1 1 auto; }
 }
+/* 시네마 히어로 위 헤더 — 스크롤 전엔 화이트 크롬 */
+body.cinema .site-header:not(.is-scrolled) .wordmark,
+body.cinema .site-header:not(.is-scrolled) .wordmark .kr { color:#fff; }
+body.cinema .site-header:not(.is-scrolled) .wordmark__logo { filter: brightness(0) invert(1); }
+body.cinema .site-header:not(.is-scrolled) .nav-primary a { color: rgba(255,255,255,.85); }
+body.cinema .site-header:not(.is-scrolled) .nav-primary a::after { background:#fff; }
+body.cinema .site-header:not(.is-scrolled) .nav-toggle span { background:#fff; }
 
 /* ---- Editorial standard ---- */
 .editorial-grid { display:grid; grid-template-columns:1fr; gap: var(--space-9); align-items:start; }
@@ -350,19 +354,16 @@ html.js [data-reveal].is-visible .section__title { clip-path: inset(0 0 -8% 0); 
 @keyframes intro-rise { from{ opacity:0; transform: translateY(24px); } to{ opacity:1; transform:none; } }
 @keyframes intro-fade { from{ opacity:0; } to{ opacity:1; } }
 html.js .hero__label, html.js #hero-title, html.js .hero__sub, html.js .hero__actions, html.js .hero__chips { animation: intro-rise 1.05s var(--ease-emph) both; }
-html.js .hero__portrait { animation: intro-fade 1.5s var(--ease-house) both; animation-delay:.15s; }
-@keyframes portrait-zoom { from{ transform: scale(1.045); } to{ transform: scale(1); } }
-html.js .hero__portrait .ph { animation: portrait-zoom 1.9s var(--ease-house) both; animation-delay:.2s; }
+@keyframes hero-zoom { from{ transform: scale(1.06); } to{ transform: scale(1); } }
+html.js .hero__bg video { animation: hero-zoom 1.8s var(--ease-house) both; }
+html.js .hero__cue { animation: intro-fade 1.4s var(--ease-house) both; animation-delay:.9s; }
 html.js .hero__label   { animation-delay:.05s; }
 html.js #hero-title    { animation-delay:.18s; }
 html.js .hero__sub     { animation-delay:.34s; }
 html.js .hero__actions { animation-delay:.5s; }
 html.js .hero__chips   { animation-delay:.64s; }
-/* bgmark는 자체 키프레임 — 최종 불투명도 .05 유지 */
-@keyframes bgmark-fade { from{ opacity:0; } to{ opacity:.05; } }
-html.js .hero__bgmark  { animation: bgmark-fade 1.6s var(--ease-house) both; animation-delay:.4s; }
 @media (prefers-reduced-motion: reduce){
-  html.js .hero__label, html.js #hero-title, html.js .hero__sub, html.js .hero__actions, html.js .hero__chips, html.js .hero__portrait, html.js .hero__bgmark, html.js .hero__portrait .ph { animation:none !important; }
+  html.js .hero__label, html.js #hero-title, html.js .hero__sub, html.js .hero__actions, html.js .hero__chips, html.js .hero__bg video, html.js .hero__cue { animation:none !important; }
 }
 
 
@@ -618,8 +619,8 @@ html.loading .loader { opacity:1; visibility:visible; }
 @media (min-width:760px){ .trust-strip{ grid-template-columns:repeat(3,1fr); } }
 @media (min-width:1100px){ .trust-strip{ grid-template-columns:repeat(6,1fr); } }
 .trust-strip li { counter-increment: ts; border-top:1px solid var(--line-strong); padding-top: var(--space-4); }
-.trust-strip li::before { content: counter(ts, decimal-leading-zero); display:block; font-family: var(--font-num);
-  font-variant-numeric: tabular-nums; font-weight:700; font-size:.82rem; letter-spacing:.1em; color: var(--accent); margin-bottom: var(--space-3); }
+.trust-strip li::before { content: counter(ts, decimal-leading-zero); display:block; font-family: var(--font-serif);
+  font-weight:600; font-size:1.05rem; letter-spacing:.06em; color: var(--accent); margin-bottom: var(--space-3); }
 .trust-strip strong { display:block; font-size:1.02rem; color: var(--ink-900); line-height:1.3; }
 .trust-strip span { display:block; color: var(--ink-500); font-size:.84rem; margin-top: var(--space-2); line-height:1.55; }
 
@@ -641,8 +642,8 @@ html.loading .loader { opacity:1; visibility:visible; }
 .svc-domain__rules { counter-reset: svcr; margin-top: var(--space-6); border-top:1px solid var(--line-2); }
 .svc-domain__rules li { counter-increment: svcr; padding: var(--space-4) 0; border-bottom:1px solid var(--line);
   color: var(--ink-700); font-size: var(--fs-small); line-height:1.7; display:flex; gap: var(--space-4); }
-.svc-domain__rules li::before { content: counter(svcr, decimal-leading-zero); font-family: var(--font-num);
-  font-variant-numeric: tabular-nums; font-weight:700; color: var(--accent); flex:none; }
+.svc-domain__rules li::before { content: counter(svcr, decimal-leading-zero); font-family: var(--font-serif);
+  font-weight:600; font-size:1.05em; color: var(--accent); flex:none; }
 .svc-domain__covers { margin-top: var(--space-5); font-size:.76rem; letter-spacing:.1em; text-transform:uppercase; color: var(--ink-300); }
 .svc-domain__body .btn { margin-top: var(--space-6); }
 /* 풀폭 클로징 — 모든 진료의 공통 입구 (QA3 검사·상담 카드 계승) */
@@ -662,9 +663,9 @@ html.loading .loader { opacity:1; visibility:visible; }
 .section--pin .pinscroll { height:240vh; }
 .section--pin .pinscroll__stage { position:sticky; top:0; height:100svh; overflow:hidden; display:flex; align-items:center;
   background: var(--deep-grad); color: var(--on-dark); }
-.pinscroll__ghost { position:absolute; right:-2%; bottom:-4%; z-index:0; font-family: var(--font-num); font-weight:800;
-  font-variant-numeric: tabular-nums; font-size: clamp(11rem, 30vw, 26rem); line-height:1; letter-spacing:-.04em;
-  color: rgba(255,255,255,.05); user-select:none; pointer-events:none; }
+.pinscroll__ghost { position:absolute; right:-2%; bottom:-4%; z-index:0; font-family: var(--font-serif); font-weight:600;
+  font-size: clamp(11rem, 30vw, 26rem); line-height:1; letter-spacing:-.02em;
+  color: rgba(255,255,255,.06); user-select:none; pointer-events:none; }
 .pinscroll__inner { position:relative; z-index:1; width:100%; }
 .section--pin .section__head { margin-bottom: var(--space-7); max-width:none;
   background-image: linear-gradient(90deg, var(--on-dark-line), rgba(255,255,255,.06) 40%, transparent); }

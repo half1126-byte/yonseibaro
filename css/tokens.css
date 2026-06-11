@@ -1,7 +1,7 @@
 /* ============================================================
    연세바로치과교정과의원 — Design Tokens (TU-style light system)
    화이트 캔버스 + 비비드 퍼플 액센트 디스플레이 타이포.
-   폰트: Pretendard(정보·본문) · Noto Serif KR(원장 철학·인용 전용).
+   폰트(이도 시스템): Pretendard(본문) · Cormorant Garamond/Nanum Myeongjo(세리프 디스플레이·인용) · Inter(숫자).
    레퍼런스: tudentalclinic.com (라이트 테마 — 컬러드 디스플레이 / 단일 액센트 규율)
    ============================================================ */
 :root {
@@ -58,10 +58,11 @@
 
   /* ---- Typography — 정보는 Pretendard로 명확하게, 원장의 철학은 Noto Serif KR로 깊이 있게 ---- */
   --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif;
-  --font-display: var(--font-sans);
-  --font-serif: var(--font-sans);
-  --font-krserif: "Noto Serif KR", "Nanum Myeongjo", Georgia, serif;  /* 철학·인용 전용 */
-  --font-num: var(--font-sans);
+  /* 이도(YIDO) 폰트 시스템 이식 — Cormorant(영문 세리프 디스플레이) + Nanum Myeongjo(한글 세리프) + Inter(숫자) */
+  --font-display: var(--font-serif);
+  --font-serif: "Cormorant Garamond", "Nanum Myeongjo", Georgia, "Apple SD Gothic Neo", serif;
+  --font-krserif: var(--font-serif);   /* 철학·인용 — 한글은 Nanum Myeongjo 폴백 */
+  --font-num: "Inter", var(--font-sans);
 
   --fs-display: clamp(2.6rem, 6.5vw, 6rem);
   --fs-h2:      clamp(1.9rem, 4.2vw, 3.4rem);
