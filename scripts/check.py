@@ -102,8 +102,6 @@ else:
             errors.append('%s: 시안 단계인데 noindex 없음 — 검색 노출 위험' % p)
     if 'draftInfo: true' not in cfg:
         warns.append('site-config.js: draft 모드인데 draftInfo true 아님 — 시안 고지 미표시')
-    if 'showPopup: true' in cfg:
-        warns.append('site-config.js: 팝업이 켜져 있음 — 의도 확인')
 
 # ---- 5. 내부 문서 유출 ----
 try:

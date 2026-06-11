@@ -200,16 +200,26 @@
     if (!pop) return;
     /* 명시적 opt-in만 표시 — config 누락/로드 실패 시에도 안 뜸 (fail-closed) */
     if ((window.BARO_CONFIG || {}).showPopup !== true) return;
-    var NEVER_KEY = "baroNoticeNever", SESSION_KEY = "baroNoticeClosed";
+    /* 새로고침마다 표시 — "다시 보지 않기"(영구)만 기억 */
+    var NEVER_KEY = "baroNoticeNever";
     try {
       if (window.localStorage.getItem(NEVER_KEY) === "1") return;
-      if (window.sessionStorage.getItem(SESSION_KEY) === "1") return;
     } catch (e) {}
 
     var slides = $$("[data-np-slide]", pop);
     var tabs = $$("[data-np-tab]", pop);
+    var bar = pop.querySelector("[data-np-bar]");
     var idx = 0, timer = null;
 
+    function resetBar(run) {
+      if (!bar) return;
+      bar.style.transition = "none";
+      bar.style.width = "0%";
+      if (!run) return;
+      void bar.offsetWidth; /* reflow — 트랜지션 재시작 */
+      bar.style.transition = "width 5s linear";
+      bar.style.width = "100%";
+    }
     function goTo(i) {
       idx = (i + slides.length) % slides.length;
       slides.forEach(function (s, k) { s.classList.toggle("is-active", k === idx); });
@@ -217,19 +227,23 @@
         if (k === idx) t.setAttribute("aria-current", "true");
         else t.removeAttribute("aria-current");
       });
+      resetBar(!!timer);
     }
-    function stopAuto() { if (timer) { window.clearInterval(timer); timer = null; } }
+    function stopAuto() {
+      if (timer) { window.clearInterval(timer); timer = null; }
+      resetBar(false);
+    }
     function startAuto() {
       if (reduce || slides.length < 2) return;
       stopAuto();
       timer = window.setInterval(function () { goTo(idx + 1); }, 5000);
+      resetBar(true);
     }
     function close(never) {
       stopAuto();
       pop.classList.remove("is-open");
       doc.body.classList.remove("modal-open");
       try {
-        window.sessionStorage.setItem(SESSION_KEY, "1");
         if (never) window.localStorage.setItem(NEVER_KEY, "1");
       } catch (e) {}
       window.setTimeout(function () { pop.hidden = true; }, 500);

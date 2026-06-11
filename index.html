@@ -151,8 +151,9 @@
           </nav>
         </div>
         <figure class="hero__portrait" data-reveal>
-          <div class="ph ph--portrait ph--brand" aria-hidden="true"><img src="assets/brand/br-mark.png" alt="" loading="lazy" /></div>
-          <figcaption>강성태 대표원장 · 교정과 전문의</figcaption>
+          <!-- 원장 실사 입수 시 이 video를 <img 원장사진>으로 교체 (LAUNCH C-15) -->
+          <div class="ph ph--portrait"><video poster="assets/photo/macro-aligner.webp" muted loop playsinline preload="none" data-autovideo aria-label="투명 얼라이너 매크로 — 연출 영상"><source src="assets/video/macro-aligner.av1.mp4" type='video/mp4; codecs="av01.0.08M.08"' /><source src="assets/video/macro-aligner.mp4" type="video/mp4" /></video></div>
+          <figcaption>인비절라인 투명교정 — 연출 영상</figcaption>
         </figure>
       </div>
     </section>
@@ -490,6 +491,7 @@
       <button type="button" class="notice-pop__arrow" data-np-next aria-label="다음 안내">›</button>
     </div>
     <div class="notice-pop__viewport">
+      <i class="notice-pop__bar" data-np-bar aria-hidden="true"></i>
       <div class="notice-pop__slide is-active" data-np-slide>
         <img src="assets/photo/facility-board-1.webp" alt="" loading="lazy" style="object-position:70% center" />
         <div class="notice-pop__body">
@@ -499,7 +501,7 @@
         </div>
       </div>
       <div class="notice-pop__slide" data-np-slide>
-        <img src="assets/photo/orthodontic-hero.webp" alt="" loading="lazy" />
+        <video poster="assets/photo/macro-aligner.webp" muted loop playsinline preload="none" data-autovideo aria-label=""><source src="assets/video/macro-aligner.av1.mp4" type='video/mp4; codecs="av01.0.08M.08"' /><source src="assets/video/macro-aligner.mp4" type="video/mp4" /></video>
         <div class="notice-pop__body">
           <span class="notice-pop__chip">• Invisalign</span>
           <h3>인비절라인<br />퍼플 다이아몬드</h3>
@@ -507,6 +509,8 @@
         </div>
       </div>
       <div class="notice-pop__slide notice-pop__slide--tint" data-np-slide>
+        <img class="notice-pop__mark" src="assets/brand/br-mark.png" alt="" loading="lazy" aria-hidden="true" />
+        <span class="notice-pop__frame" aria-hidden="true"></span>
         <div class="notice-pop__body">
           <span class="notice-pop__chip">• Hours</span>
           <h3>진료시간 안내 (예정)</h3>
