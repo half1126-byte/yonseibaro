@@ -126,20 +126,21 @@ body.nav-open { overflow:hidden; }
 /* 이중 스크림 — 세로(하단 카피 가독) + 가로(좌측 강조), 네이비 캐스트로 blackfilm을 브랜드 톤으로 그레이딩 */
 .hero__bg::after { content:""; position:absolute; inset:0;
   background:
-    linear-gradient(180deg, rgba(24,26,49,.30) 0%, rgba(24,26,49,.38) 52%, rgba(24,26,49,.82) 100%),
-    linear-gradient(90deg, rgba(24,26,49,.58) 0%, rgba(24,26,49,.2) 46%, rgba(24,26,49,0) 72%); }
+    linear-gradient(180deg, rgba(24,26,49,.38) 0%, rgba(24,26,49,.48) 52%, rgba(24,26,49,.9) 100%),
+    linear-gradient(90deg, rgba(24,26,49,.82) 0%, rgba(24,26,49,.46) 48%, rgba(24,26,49,.08) 78%); }
 .hero__copy { position:relative; z-index:1; }
 .hero__label { display:inline-block; font-size: var(--fs-eyebrow); letter-spacing: var(--tracking-eyebrow); text-transform:uppercase;
-  color: var(--on-dark-dim); font-weight: var(--w-semi); margin-bottom: var(--space-5); }
+  color: rgba(255,255,255,.8); font-weight: var(--w-semi); margin-bottom: var(--space-5); }
 .hero__label::before { content:""; display:inline-block; width:22px; height:1px; background: var(--accent-2); vertical-align:middle; margin-right:10px; }
 /* H1: 첫 줄 Pretendard / "제가 직접 봅니다"만 명조 — 다크 위 화이트 + 페리윙클 */
-.hero h1 { font-family: var(--font-sans); font-weight:750; font-size: clamp(2.3rem, 4.4vw, 4.1rem); line-height:1.24; letter-spacing: var(--tracking-display); color:#fff; max-width:18ch; }
-.hero h1 .accent { font-family: var(--font-serif); font-style:italic; font-weight:600; letter-spacing:-.01em; color: var(--accent-2); }
-.hero__sub { color: var(--on-dark-dim); font-size: var(--fs-lead); line-height: var(--lh-snug); margin-top: var(--space-5); max-width:46ch; }
+.hero h1 { font-family: var(--font-sans); font-weight:750; font-size: clamp(2.3rem, 4.4vw, 4.1rem); line-height:1.24; letter-spacing: var(--tracking-display); color:#fff; max-width:18ch;
+  text-shadow: 0 2px 30px rgba(14,16,30,.65), 0 1px 3px rgba(14,16,30,.5); }
+.hero h1 .accent { font-family: var(--font-serif); font-style:italic; font-weight:700; letter-spacing:-.01em; color:#D4D2F4; }
+.hero__sub { color: rgba(255,255,255,.82); font-size: var(--fs-lead); line-height: var(--lh-snug); margin-top: var(--space-5); max-width:46ch; text-shadow: 0 1px 16px rgba(14,16,30,.55); }
 .hero__actions { display:flex; flex-wrap:wrap; gap: var(--space-4); margin-top: var(--space-7); }
 /* 고민 바로가기 칩 — 본론(가이드 카드) 직행, 다크 히어로 변형 */
 .hero__chips { display:flex; flex-wrap:wrap; align-items:center; gap: var(--space-3); margin-top: var(--space-7); }
-.hero__chips span { font-size:.78rem; letter-spacing:.08em; color: rgba(255,255,255,.55); margin-right: var(--space-2); }
+.hero__chips span { font-size:.78rem; letter-spacing:.08em; color: rgba(255,255,255,.7); margin-right: var(--space-2); }
 .hero__chips a { font-size: var(--fs-small); color: rgba(255,255,255,.92); border:1px solid rgba(255,255,255,.34); border-radius:999px; padding:8px 16px;
   transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); }
 .hero__chips a:hover { border-color:#fff; background: rgba(255,255,255,.14); color:#fff; }
