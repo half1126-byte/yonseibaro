@@ -134,17 +134,22 @@ body.nav-open { overflow:hidden; }
 .hero h1 .accent { font-family: var(--font-krserif); font-weight:600; letter-spacing:-.015em; color: var(--accent); }
 .hero__sub { color: var(--ink-500); font-size: var(--fs-lead); line-height: var(--lh-snug); margin-top: var(--space-5); max-width:46ch; }
 .hero__actions { display:flex; flex-wrap:wrap; gap: var(--space-4); margin-top: var(--space-7); }
-.hero__badges { display:flex; flex-wrap:wrap; gap: var(--space-3); margin-top: var(--space-7); }
-.hero__badges li { font-size: var(--fs-small); color: var(--ink-600); border:1px solid var(--line-2); border-radius:999px; padding:8px 16px; }
-.hero__badges li::before { content:"✓ "; color: var(--accent); }
+/* 고민 바로가기 칩 — 본론(가이드 카드) 직행 (전환형 재배치) */
+.hero__chips { display:flex; flex-wrap:wrap; align-items:center; gap: var(--space-3); margin-top: var(--space-7); }
+.hero__chips span { font-size:.78rem; letter-spacing:.08em; color: var(--ink-300); margin-right: var(--space-2); }
+.hero__chips a { font-size: var(--fs-small); color: var(--ink-700); border:1px solid var(--line-2); border-radius:999px; padding:8px 16px;
+  transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); }
+.hero__chips a:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-tint); }
 .hero__portrait { width:100%; max-width:430px; justify-self:center; margin:0; }
 .hero__portrait .ph { aspect-ratio:3/4; }
 .hero__portrait figcaption { margin-top: var(--space-3); font-size: var(--fs-small); color: var(--ink-500); text-align:center; }
 @media (min-width:980px){ .hero__grid{ grid-template-columns:1.15fr .85fr; } .hero__portrait{ justify-self:end; } }
 @media (max-width:979px){
   .hero__bgmark { display:none; }
-  /* 모바일 원장 이미지는 38vh 이내 — H1·CTA가 첫 화면에 들어오도록 (3차 검수 4-5) */
-  .hero__portrait { order:-1; max-width: clamp(180px, calc(34vh * 0.75), 300px); }
+  /* 모바일: 실사 입수 전까지 포트레이트 숨김 — 빈 플레이스홀더가 첫 화면을 먹고
+     "제가 직접 봅니다" 카피와 모순 (Codex CRO 리뷰). 실사 교체 시 아래 줄 복원:
+     .hero__portrait { order:-1; max-width: clamp(180px, calc(34vh * 0.75), 300px); } */
+  .hero__portrait { display:none; }
   .hero__actions .btn { flex:1 1 auto; }
 }
 
@@ -344,7 +349,7 @@ html.js [data-reveal].is-visible .section__title { clip-path: inset(0 0 -8% 0); 
 
 @keyframes intro-rise { from{ opacity:0; transform: translateY(24px); } to{ opacity:1; transform:none; } }
 @keyframes intro-fade { from{ opacity:0; } to{ opacity:1; } }
-html.js .hero__label, html.js #hero-title, html.js .hero__sub, html.js .hero__actions, html.js .hero__badges { animation: intro-rise 1.05s var(--ease-emph) both; }
+html.js .hero__label, html.js #hero-title, html.js .hero__sub, html.js .hero__actions, html.js .hero__chips { animation: intro-rise 1.05s var(--ease-emph) both; }
 html.js .hero__portrait { animation: intro-fade 1.5s var(--ease-house) both; animation-delay:.15s; }
 @keyframes portrait-zoom { from{ transform: scale(1.045); } to{ transform: scale(1); } }
 html.js .hero__portrait .ph { animation: portrait-zoom 1.9s var(--ease-house) both; animation-delay:.2s; }
@@ -352,12 +357,12 @@ html.js .hero__label   { animation-delay:.05s; }
 html.js #hero-title    { animation-delay:.18s; }
 html.js .hero__sub     { animation-delay:.34s; }
 html.js .hero__actions { animation-delay:.5s; }
-html.js .hero__badges  { animation-delay:.64s; }
+html.js .hero__chips   { animation-delay:.64s; }
 /* bgmark는 자체 키프레임 — 최종 불투명도 .05 유지 */
 @keyframes bgmark-fade { from{ opacity:0; } to{ opacity:.05; } }
 html.js .hero__bgmark  { animation: bgmark-fade 1.6s var(--ease-house) both; animation-delay:.4s; }
 @media (prefers-reduced-motion: reduce){
-  html.js .hero__label, html.js #hero-title, html.js .hero__sub, html.js .hero__actions, html.js .hero__badges, html.js .hero__portrait, html.js .hero__bgmark, html.js .hero__portrait .ph { animation:none !important; }
+  html.js .hero__label, html.js #hero-title, html.js .hero__sub, html.js .hero__actions, html.js .hero__chips, html.js .hero__portrait, html.js .hero__bgmark, html.js .hero__portrait .ph { animation:none !important; }
 }
 
 
@@ -647,7 +652,7 @@ html.loading .loader { opacity:1; visibility:visible; }
 
 /* ---- 핀드 스크롤 서사 (이도 pinscroll 어댑트 — 영상 없이 텍스트 크로스페이드, --deep 네이비)
    기본 is-static(프로그레시브 인핸스먼트) — scrolly.js가 조건 통과 시 해제 ---- */
-.section--pin .pinscroll { height:380vh; }
+.section--pin .pinscroll { height:240vh; }
 .section--pin .pinscroll__stage { position:sticky; top:0; height:100svh; overflow:hidden; display:flex; align-items:center;
   background: var(--deep-grad); color: var(--on-dark); }
 .pinscroll__ghost { position:absolute; right:-2%; bottom:-4%; z-index:0; font-family: var(--font-num); font-weight:800;

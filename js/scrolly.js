@@ -9,7 +9,8 @@
 
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var stickyOK = window.CSS && CSS.supports && CSS.supports("position", "sticky");
-  if (reduce || !stickyOK) return; // is-static 유지
+  var mobile = window.matchMedia && window.matchMedia("(max-width: 699px)").matches;
+  if (reduce || !stickyOK || mobile) return; // is-static 유지 — 모바일은 본론 도달 지연 방지(전환형 재배치)
 
   var steps = Array.prototype.slice.call(pin.querySelectorAll("[data-pin-step]"));
   if (steps.length < 2) return;
