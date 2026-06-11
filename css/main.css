@@ -102,7 +102,8 @@ body.nav-open { overflow:hidden; }
   color: var(--accent-2); font-size:1.1rem; }
 .ph::after { content: attr(data-label); position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
   color: var(--ink-300); font-size:.85rem; letter-spacing:.04em; text-align:center; padding: var(--space-4); line-height:1.7; }
-.ph img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:2; }
+.ph img, .ph video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:2; }
+.ph--wide { aspect-ratio:16/9; }
 .ph--4 { aspect-ratio:4/3; }
 .ph--portrait { aspect-ratio:3/4; }
 /* 환자 노출용 브랜드 패턴 슬롯 — "준비 중" 문구 없이 BR 모노그램 워터마크 (2차 진단 3순위) */
@@ -619,6 +620,8 @@ html.loading .loader { opacity:1; visibility:visible; }
 }
 .svc-domain__media { margin:0; }
 .svc-domain__media .ph { aspect-ratio:4/3; }
+/* 연출 고지 캡션 — 의광법: 연출 미디어임을 명시 */
+.fig-note { display:block; margin-top: var(--space-2); font-size:.72rem; color: var(--ink-300); text-align:right; letter-spacing:.02em; }
 .svc-domain__idx { display:block; font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight:700;
   font-size:.9rem; letter-spacing:.14em; color: var(--accent); margin-bottom: var(--space-3); }
 .svc-domain__name { font-size: clamp(1.7rem, 3vw, 2.5rem); font-weight:800; letter-spacing: var(--tracking-display); color: var(--ink-900); }
