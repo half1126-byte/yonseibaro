@@ -332,9 +332,9 @@
       $$('a[href*="about"]').forEach(function (a) {
         a.addEventListener("click", function () { track("doctor_view", "about"); });
       });
-      $$(".tx-card a").forEach(function (a) {
+      $$(".tx-card a, .svc-domain a, .svc-closing a").forEach(function (a) {
         a.addEventListener("click", function () {
-          var card = a.closest(".tx-card");
+          var card = a.closest(".tx-card") || a.closest(".svc-domain") || a.closest(".svc-closing");
           var name = card && card.querySelector("h3") ? card.querySelector("h3").textContent.trim() : "";
           track("treatment_click", name);
         });

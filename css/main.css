@@ -23,8 +23,14 @@
 .split { display:grid; gap: var(--space-9); grid-template-columns:1fr; align-items:center; }
 @media (min-width:900px){ .split{ grid-template-columns:1fr 1fr; } .split--doctor{ grid-template-columns:.9fr 1.1fr; } }
 
-/* ---- Section head ---- */
-.section__head { max-width: 70ch; margin-bottom: var(--space-9); }
+/* ---- Section head — 번호 킥커 + "사라지는 헤어라인" (이도 구조 이식, 폰트·색은 연세바로 토큰) ---- */
+.section__head { max-width: 70ch; margin-bottom: var(--space-9); padding-top: var(--space-6);
+  background-image: linear-gradient(90deg, rgba(75,74,120,.30), rgba(75,74,120,.10) 40%, transparent);
+  background-size: 100% 1px; background-repeat: no-repeat; background-position: 0 0; }
+.section__kicker { display:flex; align-items:baseline; gap: var(--space-5); margin-bottom: var(--space-5); }
+.section__num { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight:700;
+  font-size: var(--fs-bignum); line-height:1; letter-spacing:-.02em; color: var(--accent-faint); }
+.section__kicker .section__eyebrow { margin-bottom:0; }
 .section__eyebrow { display:inline-block; font-size: var(--fs-eyebrow); letter-spacing: var(--tracking-eyebrow);
   text-transform:uppercase; color: var(--ink-500); font-weight: var(--w-semi); margin-bottom: var(--space-5); }
 .section__eyebrow::before { content:""; display:inline-block; width:20px; height:1px; background: var(--gold); vertical-align:middle; margin-right:10px; }
@@ -110,19 +116,6 @@ body.nav-open { overflow:hidden; }
 /* 진료 카드 — 텍스트형 + 라인 아이콘 (placeholder 노출 제거) */
 .tx-ico { display:block; width:33px; height:33px; color: var(--accent); margin-bottom: var(--space-4); }
 .tx-ico svg { width:100%; height:100%; display:block; }
-/* 주력 진료 featured — 균일 그리드 탈피 (데스크톱만; 모바일 캐러셀은 균일 유지) */
-.tx-card__tag { display:inline-block; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
-  color: var(--accent); font-weight: var(--w-semi); margin-bottom: var(--space-3); }
-@media (min-width:1000px){
-  .tx-card--featured { grid-column: span 2; background: var(--accent-tint); border-color: var(--accent-2); }
-  .tx-card--featured h3 { font-size: clamp(1.5rem, 2vw, 1.9rem); }
-  /* 검사·상담 = 풀폭 클로징 카드 (고아 행 방지 + 모든 진료의 공통 입구) */
-  .tx-card--wide { grid-column: 1 / -1; }
-  .tx-card--wide .tx-card__b { display:flex; align-items:center; gap: var(--space-6); }
-  .tx-card--wide .tx-ico { margin-bottom:0; flex:none; }
-  .tx-card--wide p { flex:1; margin:0; }
-  .tx-card--wide a { white-space:nowrap; }
-}
 
 /* ---- Hero (원장 중심 신뢰형 스플릿 — 개선진단 5-1) ---- */
 .hero { position:relative; background: var(--paper); color: var(--ink-900); overflow:hidden; display:flex; align-items:center;
@@ -182,26 +175,14 @@ body.nav-open { overflow:hidden; }
 .why-card p { color: var(--ink-500); font-size: var(--fs-small); line-height:1.7; }
 
 /* ---- Concern guide ---- */
-.concern-grid { display:grid; grid-template-columns:1fr; gap: var(--space-5); }
+/* 1px-gap 헤어라인 그리드 — 셀 배경으로 라인이 비쳐 보이는 표형 카드 (이도 컴포넌트 어휘) */
+.concern-grid { display:grid; grid-template-columns:1fr; gap:1px; background: var(--line); border:1px solid var(--line); }
 @media (min-width:720px){ .concern-grid{ grid-template-columns: repeat(2,1fr); } }
 @media (min-width:1100px){ .concern-grid{ grid-template-columns: repeat(3,1fr); } }
-.concern-card { background: var(--paper); border:1px solid var(--line); padding: var(--space-7); min-height: 100%; }
+.concern-card { background: var(--paper); padding: var(--space-7); min-height: 100%; transition: background var(--dur) var(--ease); }
+.concern-card:hover { background: var(--accent-tint); }
 .concern-card a { display:inline-block; margin-top: var(--space-5); color: var(--green); font-size: var(--fs-small); font-weight: var(--w-semi); border-bottom:1px solid currentColor; padding-bottom:2px; }
 
-/* ---- Treatments ---- */
-.tx-grid { display:grid; gap: var(--space-6); grid-template-columns:1fr; margin-top: var(--space-9); }
-@media (min-width:600px){ .tx-grid{ grid-template-columns: repeat(2,1fr); } }
-@media (min-width:1000px){ .tx-grid{ grid-template-columns: repeat(3,1fr); } }
-/* hover는 border만 — 과한 리프트 제거 (3차 검수 2-4) */
-.tx-card { background: var(--paper); border:1px solid var(--line); overflow:hidden; transition: border-color var(--dur) var(--ease); }
-.tx-card:hover { border-color: var(--green); }
-.tx-card__img img { transition: transform var(--dur-slow) var(--ease-emph), filter var(--dur-slow) var(--ease-emph); }
-.tx-card:hover .tx-card__img img { transform: scale(1.045); filter: saturate(1.05); }
-.tx-card__b { padding: var(--space-6) var(--space-6) var(--space-7); }
-.tx-card__b h3 { font-size: var(--fs-h3); }
-.tx-card__b p { color: var(--ink-500); font-size: var(--fs-small); margin: var(--space-3) 0 var(--space-5); line-height:1.7; }
-.tx-card__b a { color: var(--green); font-weight: var(--w-semi); font-size: var(--fs-small); border-bottom:1px solid var(--green); padding-bottom:2px; }
-@media (prefers-reduced-motion: reduce){ .tx-card:hover{ transform:none; } }
 
 /* ---- Choice comparison ---- */
 .compare-wrap { overflow-x:auto; border:1px solid var(--line); background: var(--paper); }
@@ -289,7 +270,10 @@ body.nav-open { overflow:hidden; }
 .hours caption { text-align:left; color: var(--ink-500); margin-bottom: var(--space-4); }
 .hours th, .hours td { text-align:left; padding: var(--space-4) 0; border-bottom:1px solid var(--line); }
 .hours tr:last-child th, .hours tr:last-child td { border-bottom:0; }
-.hours .num { font-family: var(--font-num); }
+.hours .num { font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+.hours tr.is-night th::after { content:"야간"; display:inline-block; margin-left:8px; font-size:.66rem; letter-spacing:.08em;
+  color: var(--accent-deep); background: var(--accent-tint); border-radius:999px; padding:3px 9px; vertical-align:2px; font-weight: var(--w-semi); }
+.hours tr.is-closed th, .hours tr.is-closed td { color: var(--ink-300); }
 
 /* ---- Footer (딥 네이비 — 의료 신뢰 톤) ---- */
 .site-footer { background: var(--deep); color: var(--on-dark); padding-block: var(--space-9) var(--space-7); }
@@ -352,10 +336,17 @@ body.modal-open { overflow:hidden; }
 [data-stagger].is-visible > *:nth-child(n+9){ transition-delay:720ms; }
 @media (prefers-reduced-motion: reduce){ [data-stagger] > *{ opacity:1 !important; transform:none !important; } }
 
+/* 타이틀 마스크 와이프 — 기존 IO reveal 위 라이더 (이도 시그니처) */
+html.js [data-reveal] .section__title { clip-path: inset(0 0 102% 0); transition: clip-path .9s var(--ease-emph) .1s; }
+html.js [data-reveal].is-visible .section__title { clip-path: inset(0 0 -8% 0); }
+@media (prefers-reduced-motion: reduce){ html.js [data-reveal] .section__title { clip-path:none !important; } }
+
 @keyframes intro-rise { from{ opacity:0; transform: translateY(24px); } to{ opacity:1; transform:none; } }
 @keyframes intro-fade { from{ opacity:0; } to{ opacity:1; } }
 html.js .hero__label, html.js #hero-title, html.js .hero__sub, html.js .hero__actions, html.js .hero__badges { animation: intro-rise 1.05s var(--ease-emph) both; }
 html.js .hero__portrait { animation: intro-fade 1.5s var(--ease-house) both; animation-delay:.15s; }
+@keyframes portrait-zoom { from{ transform: scale(1.045); } to{ transform: scale(1); } }
+html.js .hero__portrait .ph { animation: portrait-zoom 1.9s var(--ease-house) both; animation-delay:.2s; }
 html.js .hero__label   { animation-delay:.05s; }
 html.js #hero-title    { animation-delay:.18s; }
 html.js .hero__sub     { animation-delay:.34s; }
@@ -365,7 +356,7 @@ html.js .hero__badges  { animation-delay:.64s; }
 @keyframes bgmark-fade { from{ opacity:0; } to{ opacity:.05; } }
 html.js .hero__bgmark  { animation: bgmark-fade 1.6s var(--ease-house) both; animation-delay:.4s; }
 @media (prefers-reduced-motion: reduce){
-  html.js .hero__label, html.js #hero-title, html.js .hero__sub, html.js .hero__actions, html.js .hero__badges, html.js .hero__portrait, html.js .hero__bgmark { animation:none !important; }
+  html.js .hero__label, html.js #hero-title, html.js .hero__sub, html.js .hero__actions, html.js .hero__badges, html.js .hero__portrait, html.js .hero__bgmark, html.js .hero__portrait .ph { animation:none !important; }
 }
 
 
@@ -397,6 +388,14 @@ section[data-cover]{ position:relative; overflow:hidden; }
 .page-hero p { color: var(--ink-500); font-size: var(--fs-lead); margin-top: var(--space-5); max-width: 56ch; }
 .breadcrumb { font-size: var(--fs-small); color: var(--ink-300); margin-bottom: var(--space-5); }
 .breadcrumb a { color: var(--ink-500); } .breadcrumb a:hover { color: var(--ink-900); }
+/* 서브페이지 인트로 — 홈 히어로와 동일 계단식 (이도 패턴) */
+html.js .page-hero .breadcrumb { animation: intro-rise .85s var(--ease-emph) both .02s; }
+html.js .page-hero .section__eyebrow { animation: intro-rise .85s var(--ease-emph) both .1s; }
+html.js .page-hero h1 { animation: intro-rise .85s var(--ease-emph) both .2s; }
+html.js .page-hero p { animation: intro-rise .85s var(--ease-emph) both .34s; }
+@media (prefers-reduced-motion: reduce){
+  html.js .page-hero .breadcrumb, html.js .page-hero .section__eyebrow, html.js .page-hero h1, html.js .page-hero p { animation:none !important; }
+}
 
 .prose { max-width: 64ch; }
 .prose p { font-size: var(--fs-lead); color: var(--ink-700); line-height: var(--lh-body); margin-bottom: var(--space-5); }
@@ -595,3 +594,84 @@ html.loading .loader { opacity:1; visibility:visible; }
 @media (max-width:560px){ .notice-pop{ padding:14px; } }
 
 
+
+/* ============================================================
+   2026-06 이도(YIDO) 구조 이식 — 시스템만 가져오고 색·폰트·에셋은 연세바로 토큰
+   트러스트 카운터 스트립 · 진료 도메인 지그재그 · 핀스크롤 서사 · 세리프 콜아웃
+   ============================================================ */
+
+/* ---- 트러스트 스트립: counter 번호 + 헤어라인 항목 (이도 trust 구조) ---- */
+.trust-strip { counter-reset: ts; display:grid; grid-template-columns:repeat(2,1fr); gap: var(--space-6) var(--space-7); }
+@media (min-width:760px){ .trust-strip{ grid-template-columns:repeat(3,1fr); } }
+@media (min-width:1100px){ .trust-strip{ grid-template-columns:repeat(6,1fr); } }
+.trust-strip li { counter-increment: ts; border-top:1px solid var(--line-strong); padding-top: var(--space-4); }
+.trust-strip li::before { content: counter(ts, decimal-leading-zero); display:block; font-family: var(--font-num);
+  font-variant-numeric: tabular-nums; font-weight:700; font-size:.82rem; letter-spacing:.1em; color: var(--accent); margin-bottom: var(--space-3); }
+.trust-strip strong { display:block; font-size:1.02rem; color: var(--ink-900); line-height:1.3; }
+.trust-strip span { display:block; color: var(--ink-500); font-size:.84rem; margin-top: var(--space-2); line-height:1.55; }
+
+/* ---- 진료 도메인 지그재그 (이도 svc-domain — 도메인명은 Pretendard, 다짐 1문장만 세리프) ---- */
+.svc-domains { display:grid; gap: clamp(64px, 9vw, 128px); margin-top: var(--space-9); }
+.svc-domain { display:grid; grid-template-columns:1fr; gap: var(--space-7); align-items:center; }
+@media (min-width:900px){
+  .svc-domain { grid-template-columns:.92fr 1.08fr; gap: clamp(36px, 5vw, 72px); }
+  .svc-domain:nth-child(even) .svc-domain__media { order:2; }
+}
+.svc-domain__media { margin:0; }
+.svc-domain__media .ph { aspect-ratio:4/3; }
+.svc-domain__idx { display:block; font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight:700;
+  font-size:.9rem; letter-spacing:.14em; color: var(--accent); margin-bottom: var(--space-3); }
+.svc-domain__name { font-size: clamp(1.7rem, 3vw, 2.5rem); font-weight:800; letter-spacing: var(--tracking-display); color: var(--ink-900); }
+.svc-domain__creed { font-family: var(--font-krserif); font-weight:500; font-size:1.18rem; line-height:1.6; color: var(--accent-deep); margin-top: var(--space-4); }
+.svc-domain__rules { counter-reset: svcr; margin-top: var(--space-6); border-top:1px solid var(--line-2); }
+.svc-domain__rules li { counter-increment: svcr; padding: var(--space-4) 0; border-bottom:1px solid var(--line);
+  color: var(--ink-700); font-size: var(--fs-small); line-height:1.7; display:flex; gap: var(--space-4); }
+.svc-domain__rules li::before { content: counter(svcr, decimal-leading-zero); font-family: var(--font-num);
+  font-variant-numeric: tabular-nums; font-weight:700; color: var(--accent); flex:none; }
+.svc-domain__covers { margin-top: var(--space-5); font-size:.76rem; letter-spacing:.1em; text-transform:uppercase; color: var(--ink-300); }
+.svc-domain__body .btn { margin-top: var(--space-6); }
+/* 풀폭 클로징 — 모든 진료의 공통 입구 (QA3 검사·상담 카드 계승) */
+.svc-closing { margin-top: clamp(64px, 9vw, 128px); border:1px solid var(--accent-2); background: var(--accent-tint);
+  padding: var(--space-7); display:flex; flex-wrap:wrap; align-items:center; gap: var(--space-6); }
+.svc-closing .tx-ico { margin:0; flex:none; }
+.svc-closing h3 { font-size: var(--fs-h3); }
+.svc-closing p { flex:1 1 32ch; color: var(--ink-500); font-size: var(--fs-small); margin:0; line-height:1.7; }
+.svc-closing .btn { white-space:nowrap; }
+
+/* ---- 세리프 콜아웃 — 철학·다짐 인용 전용 (dr-quote 일반화) ---- */
+.callout { font-family: var(--font-krserif); font-weight:500; font-size: clamp(1.25rem, 2vw, 1.55rem); line-height:1.65;
+  color: var(--ink-900); padding-left: var(--space-6); border-left:2px solid var(--accent); max-width:34ch; margin-top: var(--space-8); }
+
+/* ---- 핀드 스크롤 서사 (이도 pinscroll 어댑트 — 영상 없이 텍스트 크로스페이드, --deep 네이비)
+   기본 is-static(프로그레시브 인핸스먼트) — scrolly.js가 조건 통과 시 해제 ---- */
+.section--pin .pinscroll { height:380vh; }
+.section--pin .pinscroll__stage { position:sticky; top:0; height:100svh; overflow:hidden; display:flex; align-items:center;
+  background: var(--deep-grad); color: var(--on-dark); }
+.pinscroll__ghost { position:absolute; right:-2%; bottom:-4%; z-index:0; font-family: var(--font-num); font-weight:800;
+  font-variant-numeric: tabular-nums; font-size: clamp(11rem, 30vw, 26rem); line-height:1; letter-spacing:-.04em;
+  color: rgba(255,255,255,.05); user-select:none; pointer-events:none; }
+.pinscroll__inner { position:relative; z-index:1; width:100%; }
+.section--pin .section__head { margin-bottom: var(--space-7); max-width:none;
+  background-image: linear-gradient(90deg, var(--on-dark-line), rgba(255,255,255,.06) 40%, transparent); }
+.section--pin .section__num { color: rgba(255,255,255,.16); }
+.section--pin .section__eyebrow { color: var(--on-dark-dim); }
+.section--pin .section__eyebrow::before { background: var(--accent-2); }
+.section--pin .section__title { color:#fff; }
+.section--pin .section__title .accent { color: var(--accent-2); }
+.pinscroll__moments { position:relative; min-height:13em; }
+.pinscroll__moment { position:absolute; inset:0 auto auto 0; max-width:580px; opacity:0; transform: translateY(18px);
+  transition: opacity .55s var(--ease-emph), transform .55s var(--ease-emph); pointer-events:none; }
+.pinscroll__moment.is-active { opacity:1; transform:none; pointer-events:auto; }
+.pinscroll__moment > span { display:block; font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight:700;
+  font-size:.9rem; letter-spacing:.14em; color: var(--accent-2); margin-bottom: var(--space-4); }
+.pinscroll__moment h3 { font-size: clamp(1.7rem, 3.2vw, 2.6rem); color:#fff; letter-spacing: var(--tracking-display); }
+.pinscroll__moment p { color: var(--on-dark-dim); margin-top: var(--space-4); font-size: var(--fs-lead); line-height:1.7; max-width:46ch; }
+.pinscroll__progress { margin-top: var(--space-8); width:min(280px, 46%); height:2px; background: rgba(255,255,255,.18); }
+.pinscroll__progress i { display:block; height:100%; width:0; background:#fff; transition: width .25s linear; }
+/* 정적 폴백 — no-JS / reduced-motion / 미지원 (마크업 기본 상태) */
+.section--pin.is-static .pinscroll { height:auto; }
+.section--pin.is-static .pinscroll__stage { position:static; height:auto; padding-block: var(--section-pad-y); }
+.section--pin.is-static .pinscroll__moments { position:static; min-height:0; display:grid; gap: var(--space-7); margin-top: var(--space-2); }
+@media (min-width:760px){ .section--pin.is-static .pinscroll__moments { grid-template-columns:repeat(2,1fr); } }
+.section--pin.is-static .pinscroll__moment { position:static; opacity:1; transform:none; pointer-events:auto; }
+.section--pin.is-static .pinscroll__progress, .section--pin.is-static .pinscroll__ghost { display:none; }

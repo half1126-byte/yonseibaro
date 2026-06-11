@@ -9,6 +9,7 @@
   --accent:      #4B4A78;   /* CTA / 강조 단어 */
   --accent-2:    #7B78B4;   /* 보조 */
   --accent-deep: #2F315F;   /* hover/strong */
+  --accent-faint: rgba(75,74,120,.26);   /* 섹션 번호·장식 — 장식이되 소음 아님 */
   --accent-tint: #F1F0FA;   /* 옅은 워시 */
 
   /* legacy 별칭 — main.css 호환 */
