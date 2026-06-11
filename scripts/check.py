@@ -20,7 +20,8 @@ if hasattr(sys.stdout, 'reconfigure'):
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PAGES = ['index.html', 'about/index.html', 'cases/index.html',
          'treatment/invisalign/index.html', 'treatment/bracket/index.html',
-         'treatment/children/index.html']
+         'treatment/children/index.html'] + ['cases/%s/index.html' % s for s in
+         ('crowding', 'protrusion', 'openbite', 'deepbite', 'crossbite', 'spacing', 'growth', 'preprosthetic')]
 LAUNCH = '--launch' in sys.argv
 errors, warns = [], []
 

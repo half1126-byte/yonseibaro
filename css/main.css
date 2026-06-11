@@ -678,3 +678,32 @@ html.loading .loader { opacity:1; visibility:visible; }
 @media (min-width:760px){ .section--pin.is-static .pinscroll__moments { grid-template-columns:repeat(2,1fr); } }
 .section--pin.is-static .pinscroll__moment { position:static; opacity:1; transform:none; pointer-events:auto; }
 .section--pin.is-static .pinscroll__progress, .section--pin.is-static .pinscroll__ghost { display:none; }
+
+/* ---- 딥 네이비 서피스 명함 질감 — 그레인 soft-light + 상단 라디얼 시인 (이도 다크 표면 이식)
+   전역 multiply 그레인은 다크 위에서 안 보임 → 딥 서피스 전용 오버레이 ---- */
+.cta-band, .site-footer { position:relative; overflow:hidden; }
+.pinscroll__stage::before, .cta-band::before, .site-footer::before, .notice-pop__slide--tint::before {
+  content:""; position:absolute; inset:0; pointer-events:none; z-index:0;
+  background-image: radial-gradient(120% 64% at 50% 0%, rgba(255,255,255,.06), transparent 62%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: auto, 220px 220px;
+  mix-blend-mode: soft-light; opacity:.6;
+}
+.cta-band > .container, .site-footer > .container { position:relative; z-index:1; }
+.notice-pop__slide--tint .notice-pop__body { z-index:2; }
+
+/* ---- 케이스 칼럼 (GEO/AEO 교육 콘텐츠) ---- */
+.column-article { max-width: 760px; }
+.column-article h2 { font-size: clamp(1.45rem, 2.4vw, 1.9rem); letter-spacing: var(--tracking-display); margin: var(--space-9) 0 var(--space-5); padding-top: var(--space-6); border-top:1px solid var(--line); }
+.column-article h2:first-child { margin-top:0; padding-top:0; border-top:0; }
+.column-article p { color: var(--ink-700); line-height:1.85; margin-bottom: var(--space-5); }
+.column-article ul { margin: 0 0 var(--space-5); }
+.column-article li { position:relative; padding: var(--space-2) 0 var(--space-2) 18px; color: var(--ink-700); line-height:1.75; }
+.column-article li::before { content:""; position:absolute; left:2px; top:1.05em; width:7px; height:1px; background: var(--accent); }
+.column-article .ph { margin: var(--space-7) 0; }
+.evidence-box { margin: var(--space-9) 0; border:1px solid var(--line); border-top:1px solid var(--accent); background: var(--paper-2); padding: var(--space-6) var(--space-7); }
+.evidence-box h3 { font-size:.76rem; letter-spacing:.16em; text-transform:uppercase; color: var(--accent); margin-bottom: var(--space-3); }
+.evidence-box li { font-size: var(--fs-small); color: var(--ink-600); padding: var(--space-3) 0; border-top:1px solid var(--line); line-height:1.7; }
+.evidence-box li:first-child { border-top:0; }
+.evidence-box cite { font-style:normal; font-weight: var(--w-semi); color: var(--ink-900); }
+.column-nav { margin-top: var(--space-9); padding-top: var(--space-6); border-top:1px solid var(--line); }
+.column-nav a { color: var(--accent); font-weight: var(--w-semi); font-size: var(--fs-small); }
